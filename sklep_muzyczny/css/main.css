@@ -1,0 +1,80 @@
+:root {
+    --main-color: #372680;
+    --secondary-color: #190b55;
+    --text-color: #ffffff;
+    --important: #9688d6;
+    --background-color: #cbc5e2;
+}
+
+body * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: var(--text-color);
+    display: flex;
+    justify-content: center;
+}
+
+.container {
+    flex-basis: 90%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.page-header {
+    flex-basis: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.page-header > * {
+    flex-basis: 45%;
+}
+
+.page-header-nav {
+    display: flex;
+    justify-content: center;
+}
+
+.nav-list {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    list-style: none;
+}
+
+.page-main {
+    position: relative;
+    flex-basis: 100%;
+    height: 60vh;
+}
+
+.page-main-title {
+    position: absolute;
+    /* center the header */
+    top: 50%;  
+    left: 50%; 
+    transform: translate(-50%, -50%);
+    /* style the header */
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+}
+
+.page-section {
+    position: relative;
+    flex-basis: 100%;
+    height: 30vh;
+    /* Add bg image!!! */
+    background-image: url("");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 100% 100%;
+}
+
+/* add rest of the layout !!!*/
