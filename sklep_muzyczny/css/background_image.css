@@ -1,12 +1,13 @@
 #main {
-    background-image: url("../img/main-background.jpg");
+    background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5)), url("../img/main-background.jpg");
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: 100% 100%;
+    filter: brightness(90%)
 }
 
 #section {
-    background-image: url("../img/aside-background.jpg");
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.6)), url("../img/aside-background.jpg");
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: 100% 100%;
