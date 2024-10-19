@@ -1,13 +1,13 @@
-<header class="page-header">
-    <header class="page-header-title">
-        <h1 class="page-title"> <a href="../html/home.php">Semiquaver</a></h1>
+<header class="flex justify-between p-6">
+    <header class="basis-[45%] p-2">
+        <h1 class="text-3xl"> <a href="../html/home.php">Semiquaver</a></h1>
     </header>
-    <nav class="page-header-nav">
-        <ul class="nav-list">
-            <li class="nav-list-element"><a href="./store.php">Store</a></li>
-            <li class="nav-list-element"><a href="#">#</a></li>
-            <li class="nav-list-element"><a href="#">#</a></li>
-            <li class="nav-list-element"><a href="#">#</a></li>
+    <nav class="flex flex-col justify-center basis-[45%] p-2">
+        <ul class="flex justify-between">
+            <li class=""><a href="./store.php">Store</a></li>
+            <li class=""><a href="#">#</a></li>
+            <li class=""><a href="#">#</a></li>
+            <li class=""><a href="#">#</a></li>
         </ul>
     </nav>
 </header>
