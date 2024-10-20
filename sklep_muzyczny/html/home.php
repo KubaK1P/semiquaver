@@ -18,9 +18,8 @@
                 <!-- position: absolute; maybe -->
                 <h2 class="text-6xl tracking-wide">Semiquaver</h2>
                 <p>Your only choice about music equipment</p>
-                <div class="">
-                    <button>Click</button>
-                    <button>Click</button>
+                <div class="text-semibold text-sky-300">
+                    <a href="./store.php">Store</a>
                 </div>
             </header>
         </main>
@@ -30,7 +29,7 @@
                     <h2 class="text-5xl tracking-wide">SemiGood Guitars</h2>
                     <p>Check out our guitar creator</p>
                     <div class="">
-                        <a href="#" class="text-sky-300">Our creator</a>
+                        <a href="#" class="text-sky-300">Creator</a>
                     </div>
             </header>      
         </section>
