@@ -13,7 +13,7 @@
         <?php
         include "../components/header.shtml";
         ?>
-        <header class="relative h-[95vh] text-[600%] text-white font-semibold p-6" id="store">
+        <header class="relative h-[100vh] text-[600%] text-white font-semibold p-6" id="store">
             <div class="flex flex-col items-center absolute top-[77%] left-[50%] translate-x-[-50%] translate-y-[-70%]">
                 <h1 class="">Store</h1>
                 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
@@ -21,7 +21,7 @@
                 </svg>
             </div>
         </header>
-        <div class="flex min-h-[60vh] p-6 bg-gradient-to-r from-white to-sky-200">
+        <div class="flex min-h-[60vh] p-6">
             <aside class="flex flex-col basis-[35%] p-2">
                 <section>
                     <header class="text-3xl text-semibold p-2">
@@ -49,109 +49,9 @@
                     <h2 class="w-1/2 shadow-md rounded-lg border border-gray-300 p-2 pl-4">Products</h2>
                 </header>
                 <div class="flex flex-wrap justify-between gap-6 pl-10 pr-10" id="products">
-                    <div class="basis-[30%] bg-white border border-gray-200 rounded-lg shadow">
-                        <a href="#">
-                            <img class="rounded-t-lg" src="../img/product-example.jpg" alt="product image" />
-                        </a>
-                        <div class="p-5">
-                            <a href="#">
-                                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">Product name</h5>
-                            </a>
-                            <p class="mb-3 font-normal text-gray-700 ">Product info</p>
-                            <a href="#" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-gray-800 bg-gradient-to-r from-white to-sky-200 rounded-lg shadow">
-                                Read more
-                                <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
-                                </svg>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="basis-[30%] bg-white border border-gray-200 rounded-lg shadow">
-                        <a href="#">
-                            <img class="rounded-t-lg" src="../img/product-example.jpg" alt="product image" />
-                        </a>
-                        <div class="p-5">
-                            <a href="#">
-                                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">Product name</h5>
-                            </a>
-                            <p class="mb-3 font-normal text-gray-700 ">Product info</p>
-                            <a href="#" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-gray-800 bg-gradient-to-r from-white to-sky-200 rounded-lg shadow">
-                                Read more
-                                <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
-                                </svg>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="basis-[30%] bg-white border border-gray-200 rounded-lg shadow">
-                        <a href="#">
-                            <img class="rounded-t-lg" src="../img/product-example.jpg" alt="product image" />
-                        </a>
-                        <div class="p-5">
-                            <a href="#">
-                                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">Product name</h5>
-                            </a>
-                            <p class="mb-3 font-normal text-gray-700 ">Product info</p>
-                            <a href="#" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-gray-800 bg-gradient-to-r from-white to-sky-200 rounded-lg shadow">
-                                Read more
-                                <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
-                                </svg>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="basis-[30%] bg-white border border-gray-200 rounded-lg shadow">
-                        <a href="#">
-                            <img class="rounded-t-lg" src="../img/product-example.jpg" alt="product image" />
-                        </a>
-                        <div class="p-5">
-                            <a href="#">
-                                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">Product name</h5>
-                            </a>
-                            <p class="mb-3 font-normal text-gray-700 ">Product info</p>
-                            <a href="#" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-gray-800 bg-gradient-to-r from-white to-sky-200 rounded-lg shadow">
-                                Read more
-                                <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
-                                </svg>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="basis-[30%] bg-white border border-gray-200 rounded-lg shadow">
-                        <a href="#">
-                            <img class="rounded-t-lg" src="../img/product-example.jpg" alt="product image" />
-                        </a>
-                        <div class="p-5">
-                            <a href="#">
-                                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">Product name</h5>
-                            </a>
-                            <p class="mb-3 font-normal text-gray-700 ">Product info</p>
-                            <a href="#" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-gray-800 bg-gradient-to-r from-white to-sky-200 rounded-lg shadow">
-                                Read more
-                                <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
-                                </svg>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="basis-[30%] bg-white border border-gray-200 rounded-lg shadow">
-                        <a href="#">
-                            <img class="rounded-t-lg" src="../img/product-example.jpg" alt="product image" />
-                        </a>
-                        <div class="p-5">
-                            <a href="#">
-                                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">Product name</h5>
-                            </a>
-                            <p class="mb-3 font-normal text-gray-700 ">Product info</p>
-                            <a href="#" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-gray-800 bg-gradient-to-r from-white to-sky-200 rounded-lg shadow">
-                                Read more
-                                <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
-                                </svg>
-                            </a>
-                        </div>
-                    </div>
-
+                <?php
+                    include "../components/product.php";
+                ?>
                 </div>
             </main>
         </div>
