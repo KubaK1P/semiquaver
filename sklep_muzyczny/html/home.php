@@ -13,7 +13,7 @@
        <?php
        include "../components/header.shtml";
        ?>
-        <main class="h-[89vh] relative p-6" id="main">
+        <main class="h-[100vh] relative p-6" id="main">
             <header class="absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] text-white font-bold">
                 <!-- position: absolute; maybe -->
                 <h2 class="text-6xl tracking-wide">Semiquaver</h2>
@@ -23,7 +23,7 @@
                 </div>
             </header>
         </main>
-        <section class="relative h-[89vh] p-6" id="section">   
+        <section class="relative h-[100vh] p-6" id="section">   
             <header class="absolute top-[50%] left-[70%] translate-x-[-50%] translate-y-[-50%] text-white font-bold">
                     <!-- position: absolute; maybe -->
                     <h2 class="text-5xl tracking-wide">SemiGood Guitars</h2>
@@ -33,7 +33,7 @@
                     </div>
             </header>      
         </section>
-        <aside class="h-[50vh] p-6 bg-gradient-to-r from-white to-sky-200">
+        <aside class="h-[50vh] p-6">
             <header class="p-2 m-4 text-3xl font-semibold">
                 <h2 class="text-center">Our Customers' words</h2>
             </header>
