@@ -50,7 +50,7 @@
                 </header>
                 <div class="flex flex-wrap justify-between gap-6 pl-10 pr-10" id="products">
                 <?php
-                    include "../components/product.php";
+                    include "../components/product_comp.php";
                 ?>
                 </div>
             </main>

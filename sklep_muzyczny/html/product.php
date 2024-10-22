@@ -13,7 +13,9 @@
         <?php
         include "../components/header.shtml";
         ?>
-        <main>Product here
+        <main>
+            <!-- $_GET[$id] tego szukalem-->
+            <!-- product.php?id=x -->
         </main>
         <?php
         include "../components/footer.shtml";
