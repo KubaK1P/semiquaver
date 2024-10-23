@@ -1,3 +1,11 @@
 <?php
-// connect to the database later (23.10?)
-// Include (require) this in the right files
+function connect($servername, $username, $password) {
+    $conn = mysqli_connect($servername, $username, $password);
+
+    // Check connection
+    if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error());
+    }
+    echo "Connected successfully";
+    return $conn;
+}
