@@ -1,5 +1,7 @@
 <?php
 //Bazia danych - czemu nie działa
+require("../scripts/mysql_connect.php");
+$conn = connect();
 
 include "../components/product_comp.php";
 
@@ -11,3 +13,4 @@ product(4, "Pianino inne", "Dalej nie flet prosty inne", 70, "../img/product-exa
 product(5, "Trąbka", "Dalej nie flet prosty", 50, "../img/product-example.jpg");
 product(6, "Saksofon", "Fajny saksofon", 70, "../img/product-example.jpg");
 
+mysqli_close($conn);

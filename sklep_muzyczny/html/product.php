@@ -1,3 +1,8 @@
+<?php
+require("../scripts/mysql_connect.php");
+$conn = connect();
+?>
+<!-- Działa skrypciik -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,6 +19,7 @@
         include "../components/header.shtml";
         ?>
         <main>
+
             <!-- $_GET[$id] tego szukalem-->
             <!-- product.php?id=x -->
         </main>
