@@ -1,6 +1,6 @@
 <?php
-function connect($servername, $username, $password) {
-    $conn = mysqli_connect($servername, $username, $password);
+function connect() {
+    $conn = mysqli_connect("localhost", "root", "JezuUfamTobie");
 
     // Check connection
     if (!$conn) {
