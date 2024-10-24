@@ -1,5 +1,5 @@
 <?php
-//Bazia danych - czemu nie działa
+//Bazia danych - działa
 require("../scripts/mysql_connect.php");
 include "../components/product_comp.php";
 
