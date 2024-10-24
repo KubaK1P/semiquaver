@@ -1,16 +1,16 @@
 <?php
 //Bazia danych - czemu nie działa
 require("../scripts/mysql_connect.php");
-$conn = connect();
-
 include "../components/product_comp.php";
 
-//to pewnie jakas petla bedzie
-product(1, "Flet", "Flet prosty", 10, "../img/product-example.jpg");
-product(2, "Nie flet", "Nie flet prosty", 100, "../img/product-example.jpg");
-product(3, "Pianino", "Dalej nie flet prosty", 550, "../img/product-example.jpg");
-product(4, "Pianino inne", "Dalej nie flet prosty inne", 70, "../img/product-example.jpg");
-product(5, "Trąbka", "Dalej nie flet prosty", 50, "../img/product-example.jpg");
-product(6, "Saksofon", "Fajny saksofon", 70, "../img/product-example.jpg");
+$conn = connect();
+
+$result = mysqli_query($conn ,"SELECT produkt.Id_produktu, produkt.Nazwa_produktu, produkt.Opis_produktu, produkt.Cena_jednostkowa, produkt.Zdjecie_produktu, kategoria_produktu.Nazwa_kategorii_produktu FROM produkt INNER JOIN kategoria_produktu ON produkt.Id_kategorii_produktu = kategoria_produktu.Id_kategorii_produktu");
+
+$products = mysqli_fetch_all($result, MYSQLI_ASSOC);
+// echo var_dump($products);
+foreach ($products as $product) {
+    product($product["Id_produktu"], $product["Nazwa_produktu"], $product["Cena_jednostkowa"], $product["Zdjecie_produktu"], $product["Nazwa_kategorii_produktu"]);
+}
 
 mysqli_close($conn);

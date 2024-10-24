@@ -1,5 +1,5 @@
 <?php
-function product($productId, $productName, $productDesc, $productPrice, $productImage) {
+function product($productId, $productName, $productPrice, $productImage, $productCategory) {
 echo <<<EOF
 <div class="basis-[30%] bg-white border border-gray-200 rounded-lg shadow">
     <a href="./product.php?id=$productId">
@@ -9,7 +9,7 @@ echo <<<EOF
         <a href="./product.php?id=$productId">
             <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">$productName</h5>
         </a>
-        <p class="mb-3 font-normal text-gray-700 ">$productDesc</p>
+        <p class="mb-3 font-normal text-gray-500 ">$productCategory</p>
         <div class="flex justify-between items-center">
             <!-- Get atribute with php -->
         <a href="./product.php?id=$productId" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-gray-800 bg-gradient-to-r from-white to-sky-200 rounded-lg shadow">
