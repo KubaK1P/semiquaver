@@ -68,6 +68,9 @@ $similarProducts = mysqli_fetch_all($resultAside, MYSQLI_ASSOC);
                 ?>
             </div>
         </aside>
+        <section class="h-[60vh] p-6">
+            <!-- Reviews here probably -->
+        </section>
         <?php
         include "../components/footer.shtml";
         ?>
