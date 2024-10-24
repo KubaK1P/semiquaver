@@ -1,7 +1,7 @@
 <?php
-function product($productId, $productName, $productPrice, $productImage, $productCategory) {
+function product($productId, $productName, $productPrice, $productImage, $productCategory, $productWidth) {
 echo <<<EOF
-<div class="basis-[30%] bg-white border border-gray-200 rounded-lg shadow">
+<div class="basis-[$productWidth%] bg-white border border-gray-200 rounded-lg shadow">
     <a href="./product.php?id=$productId">
         <img class="rounded-t-lg h-[18rem]" src="$productImage" alt="product image" />
     </a>

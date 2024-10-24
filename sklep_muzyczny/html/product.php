@@ -1,13 +1,18 @@
 <?php
 
 require("../scripts/mysql_connect.php");
+include "../components/product_comp.php";
 
 $conn = connect();
 $productIdGet = $_GET["id"];
 
-$resultMain = mysqli_query($conn, "SELECT produkt.Nazwa_produktu, produkt.Opis_produktu, produkt.Cena_jednostkowa, produkt.Zdjecie_produktu, kategoria_produktu.Nazwa_kategorii_produktu FROM produkt INNER JOIN kategoria_produktu ON kategoria_produktu.Id_kategorii_produktu = produkt.Id_kategorii_produktu WHERE produkt.Id_produktu = " . $productIdGet . ";");
-// $resultAside = mysqli_query($conn, "");
+$resultMain = mysqli_query($conn, "SELECT produkt.Id_produktu, produkt.Nazwa_produktu, produkt.Opis_produktu, produkt.Cena_jednostkowa, produkt.Zdjecie_produktu, kategoria_produktu.Nazwa_kategorii_produktu, kategoria_produktu.Id_kategorii_produktu FROM produkt INNER JOIN kategoria_produktu ON kategoria_produktu.Id_kategorii_produktu = produkt.Id_kategorii_produktu WHERE produkt.Id_produktu = " . $productIdGet . ";");
+
 $product = mysqli_fetch_assoc($resultMain);
+
+$resultAside = mysqli_query($conn, "SELECT produkt.Id_produktu, produkt.Nazwa_produktu, produkt.Opis_produktu, produkt.Cena_jednostkowa, produkt.Zdjecie_produktu, kategoria_produktu.Nazwa_kategorii_produktu, kategoria_produktu.Id_kategorii_produktu FROM produkt INNER JOIN kategoria_produktu ON kategoria_produktu.Id_kategorii_produktu = produkt.Id_kategorii_produktu WHERE kategoria_produktu.Id_kategorii_produktu = " . $product["Id_kategorii_produktu"] . " AND produkt.Id_produktu <> " . $product["Id_produktu"] . " LIMIT 4;");
+
+$similarProducts = mysqli_fetch_all($resultAside, MYSQLI_ASSOC);
 ?>
 <!-- Działa skrypciik -->
 <!DOCTYPE html>
@@ -51,8 +56,17 @@ $product = mysqli_fetch_assoc($resultMain);
                 </div>
             </div>
         </main>
-        <aside>
-
+        <aside class="h-[60vh] p-6">
+            <header class="p-2 mb-3 tracking-wide"> 
+                <h2 class="pl-4 text-3xl text-gray-800 font-bold">Products in the <?php echo $product["Nazwa_kategorii_produktu"]; ?> category:</h2>    
+            </header>
+            <div class="flex flex-wrap justify-between gap-6 pl-10 pr-10">
+                <?php 
+                foreach ($similarProducts as $product) {
+                    product($product["Id_produktu"], $product["Nazwa_produktu"], $product["Cena_jednostkowa"], $product["Zdjecie_produktu"], $product["Nazwa_kategorii_produktu"], 20);
+                }
+                ?>
+            </div>
         </aside>
         <?php
         include "../components/footer.shtml";

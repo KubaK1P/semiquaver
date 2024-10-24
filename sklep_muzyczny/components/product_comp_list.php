@@ -10,7 +10,7 @@ $result = mysqli_query($conn ,"SELECT produkt.Id_produktu, produkt.Nazwa_produkt
 $products = mysqli_fetch_all($result, MYSQLI_ASSOC);
 // echo var_dump($products);
 foreach ($products as $product) {
-    product($product["Id_produktu"], $product["Nazwa_produktu"], $product["Cena_jednostkowa"], $product["Zdjecie_produktu"], $product["Nazwa_kategorii_produktu"]);
+    product($product["Id_produktu"], $product["Nazwa_produktu"], $product["Cena_jednostkowa"], $product["Zdjecie_produktu"], $product["Nazwa_kategorii_produktu"], 30);
 }
 
 mysqli_close($conn);
