@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Paź 21, 2024 at 12:10 PM
+-- Generation Time: Paź 24, 2024 at 11:52 AM
 -- Wersja serwera: 10.4.32-MariaDB
 -- Wersja PHP: 8.2.12
 
@@ -52,9 +52,21 @@ CREATE TABLE `gitara_koszyk` (
 
 CREATE TABLE `kategoria_produktu` (
   `Id_kategorii_produktu` int(11) NOT NULL,
-  `Nazwa_kategorii_produktu` varchar(20) NOT NULL,
+  `Nazwa_kategorii_produktu` varchar(34) NOT NULL,
   `Opis_kategorii_produktu` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `kategoria_produktu`
+--
+
+INSERT INTO `kategoria_produktu` (`Id_kategorii_produktu`, `Nazwa_kategorii_produktu`, `Opis_kategorii_produktu`) VALUES
+(1, 'Instrumenty klawiszowe', 'Pianina, akordeony, keyboardy itp.'),
+(8, 'Instrumenty Smyczkowe', 'Skrzypce, altówki, wiolonczele, kontrabasy'),
+(9, 'Instrumenty dęte', 'Flety, oboje, trąbki, tuby, inne flety'),
+(10, 'Gitary', 'Elektroakustyczne, Akustyczne, Klasyczne, Elektryczne'),
+(11, 'Części do gitar', 'Pickupy, struny, gryfy, klucze, mostki'),
+(12, 'Akcesoria', 'Pulpity, paski, stroiki');
 
 -- --------------------------------------------------------
 
@@ -125,6 +137,15 @@ CREATE TABLE `produkt` (
   `Zdjecie_produktu` varchar(50) NOT NULL,
   `Id_kategorii_produktu` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `produkt`
+--
+
+INSERT INTO `produkt` (`Id_produktu`, `Nazwa_produktu`, `Opis_produktu`, `Cena_jednostkowa`, `Zdjecie_produktu`, `Id_kategorii_produktu`) VALUES
+(1, 'Pianino Yamaha', 'W naszych umysłach, pianino nie jest \"skończonym\" instrumentem; nieustannie staramy się go ulepszać dla tych, którzy lubią na nim grać. W dążeniu do \"ideału\" instrumentu - idealnego brzmienia, idealnego rezonansu, a nawet idealnego stylu - kontynuujemy proces ewolucji pianina na wiele sposobów, włączając w to stosowanie innowacyjnych metod produkcji oraz skrupulatny dobór nowych materiałów. Marka fortepianów Yamaha jest znana i kochana na całym świecie, a my dbamy o to, żeby podtrzymać tę reputację.', 6999.99, '../img/product-example.jpg', 1),
+(2, 'Skrzypce Stradivarius', 'SkrzepceSkrzepceSk\r\nrzepceSkrzepceSkrzepceSkrzepceSkrzepceSkrzepceSkrzepceSkrzepce                                                                                       SkrzepceSkrzepceSkr\r\nzepceSkrzepceSkrzepceSkrzepceSkrzepceSkrzepceSkrzepceSkrzepce', 300.00, '../img/product-example2.jpg', 8),
+(3, 'Flet prosty', 'Denerwujący instrument, który bardzo lubię', 30.00, '../img/product-example3.jpg', 9);
 
 -- --------------------------------------------------------
 
@@ -277,7 +298,7 @@ ALTER TABLE `gitara`
 -- AUTO_INCREMENT for table `kategoria_produktu`
 --
 ALTER TABLE `kategoria_produktu`
-  MODIFY `Id_kategorii_produktu` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id_kategorii_produktu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `klient`
@@ -307,7 +328,7 @@ ALTER TABLE `opinia`
 -- AUTO_INCREMENT for table `produkt`
 --
 ALTER TABLE `produkt`
-  MODIFY `Id_produktu` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id_produktu` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `zamowienie`
