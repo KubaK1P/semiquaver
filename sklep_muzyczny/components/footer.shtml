@@ -1,29 +1,36 @@
-<footer class="w-full p-6 flex justify-evenly">
+<footer class="h-[40vh] w-full p-6 flex justify-evenly border border-sky-200 border-t-2 border-l-0 border-r-0 border-b-0 bg-gradient-to-b from-sky-100 from-0% to-white">
     <section class="p-2">
-        <header>
-            <h3>Footer's section</h3>
+        <header class="mb-4 text-2xl tracking-wide font-semibold">
+            <h3 class="text-gray-800">Contact: </h3>
         </header>
-        <ul>
-            <li>something</li>
-            <li>something nr. 2</li>
+        <ul class="h-1/2 flex flex-col justify-around text-gray-700">
+            <li>Semiquaver</li>
+            <li>+48 568 468 032</li>
+            <li>semiquaver.store@gmail.com</li>
+            <li>Boulward str.</li>
         </ul>
     </section>
     <section class="p-2">
-        <header>
-            <h3>Footer's section</h3>
+        <header class="mb-4 text-2xl tracking-wide font-semibold">
+            <h3 class="text-gray-800">Social Media:</h3>
         </header>
-        <ul>
-            <li>something</li>
-            <li>something nr. 2</li>
+        <ul class="h-1/2 flex flex-col justify-around text-sky-600">
+            <li>Instagram</li>
+            <li>Tiktok</li>
+            <li>Facebook</li>
+            <li>Telegram</li>
         </ul>
     </section>
     <section class="p-2">
-        <header>
-            <h3>Footer's section</h3>
+        <header class="mb-4 text-2xl tracking-wide font-semibold">
+            <h3 class="text-gray-800">Honorable mentions:</h3>
         </header>
-        <ul>
-            <li>something</li>
-            <li>something nr. 2</li>
+        <ul class="h-1/2 flex flex-col justify-around text-gray-700">
+            <li>Bartosz Geodecki</li>
+            <li>Freddy Fazbear</li>
+            <li>Weber Beton B30<br> super mocna mieszanka betonowa 25 kg
+            </li>
+            <li class="font-bold">13</li>
         </ul>
     </section>
 </footer>
