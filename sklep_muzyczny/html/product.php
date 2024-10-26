@@ -57,8 +57,7 @@ $similarProducts = mysqli_fetch_all($resultAside, MYSQLI_ASSOC);
             </div>
         </main>
         <aside class="h-[60vh] p-6">
-            <header class="p-2 mb-3 tracking-wide"> 
-                <h2 class="pl-4 text-3xl text-gray-800 font-bold">Products in the <?php echo $product["Nazwa_kategorii_produktu"]; ?> category:</h2>    
+            <header class="D="pl-4 text-3xl text-gray-800 font-bold">Products in the <?php echo $product["Nazwa_kategorii_produktu"]; ?> category:</h2>    
             </header>
             <div class="flex flex-wrap justify-between gap-6 pl-10 pr-10">
                 <?php 
