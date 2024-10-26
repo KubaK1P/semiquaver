@@ -36,6 +36,16 @@ if (!(isset($_POST["search_term"]))) {
         </header>
         <div class="flex min-h-[60vh] p-6">
             <aside class="flex flex-col basis-[35%] p-2">
+            <section>
+                    <header class="text-3xl text-semibold p-2">
+                        <h2>Sorting</h2>
+                    </header>
+                    <ul>
+                        <li><a href="#">Price - asc</a></li>
+                        <li><a href="#">Price - desc</a></li>
+                        <li><a href="#">Name</a></li>
+                    </ul>
+                </section>
                 <section>
                     <header class="text-3xl text-semibold p-2">
                         <h2>Categories</h2>
