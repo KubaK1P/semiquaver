@@ -58,7 +58,10 @@
             </aside>
             <main class="basis-[65%] p-2">
                 <header class="flex text-4xl text-bold mb-6">
-                    <h2 class="text-5xl basis-1/2 p-2 pl-4">Products</h2>
+                    <h2 class="text-5xl basis-1/4 p-2 pl-4">Products</h2>
+                    <form action="./store.php#searchResult" class="text-2xl text-right leading-[50px] basis-1/4 p-2 pl-4 pr-4 text-semibold text-sky-300">
+                        <button type="submit">Clear</button>
+                    </form>
                     <form action="./store.php#searchResult" method="post" class="flex basis-1/2 gap-4 rounded-md border-2 border-sky-500 overflow-hidden mx-auto">
                         <input type="text" placeholder="Search products" name="search_term"
                             class="w-full outline-none bg-white text-gray-700 text-lg px-4 py-3" />
@@ -74,7 +77,7 @@
                 <div class="flex flex-wrap gap-8 pl-10 pr-10" id="products">
                     <?php
                     include "../components/product_comp_list.php";
-
+                    
                     $productCount = show_products((isset($_POST["search_term"]))? $_POST["search_term"]: "");
 
                     if ($productCount == 0) {
