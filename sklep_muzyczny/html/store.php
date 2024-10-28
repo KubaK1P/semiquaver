@@ -1,14 +1,3 @@
-<?php
-require("../scripts/search_query.php");
-
-if (!(isset($_POST["search_term"]))) {
-    $query = "SELECT produkt.Id_produktu, produkt.Nazwa_produktu, produkt.Opis_produktu, produkt.Cena_jednostkowa, produkt.Zdjecie_produktu, kategoria_produktu.Nazwa_kategorii_produktu FROM produkt INNER JOIN kategoria_produktu ON produkt.Id_kategorii_produktu = kategoria_produktu.Id_kategorii_produktu";
-} else {
-    $search_term = $_POST["search_term"];
-    $query = get_query($search_term);
-}
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -86,7 +75,11 @@ if (!(isset($_POST["search_term"]))) {
                     <?php
                     include "../components/product_comp_list.php";
 
-                    show_products($query);
+                    $productCount = show_products((isset($_POST["search_term"]))? $_POST["search_term"]: "");
+
+                    if ($productCount == 0) {
+                        echo "<h3 class=\"mb-4 text-lg text-bold text-gray-700\">Nothing found, perhaps you are searching for a medieval lute?</h3> <a href=\"https://en.wikipedia.org/wiki/Lute\" class=\"text-lg text-semibold text-sky-300\">Lute info</a>";
+                    }
                     ?>
                 </div>
             </main>

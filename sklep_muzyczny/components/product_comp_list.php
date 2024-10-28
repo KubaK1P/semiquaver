@@ -1,22 +1,14 @@
 <?php
 //Bazia danych - działa
-require("../scripts/mysql_connect.php");
+require("../scripts/search_query.php");
 include "../components/product_comp.php";
 
-function show_products($query)
+function show_products($term)
 {
-    $conn = connect();
-
-    $result = mysqli_execute_query($conn, $query);
-
-    $products = mysqli_fetch_all($result, MYSQLI_ASSOC);
-    // $products_length = count($products);
-
-    // echo $products_length;
+    $products = get_products($term);
+    $productsLength = count($products);
     foreach ($products as $product) {
         product($product["Id_produktu"], $product["Nazwa_produktu"], $product["Cena_jednostkowa"], $product["Zdjecie_produktu"], $product["Nazwa_kategorii_produktu"], 30);
     }
-
-    mysqli_close($conn);
-    // return $products_length;
+    return $productsLength;
 }
