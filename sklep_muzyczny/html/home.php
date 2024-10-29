@@ -40,7 +40,7 @@
             <section class="flex justify-evenly">
                 <article class="transition duration-350 basis-[25%] block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-sky-200  dark:border-gray-700">
                     <header> 
-                        <h3 class="mb-2 text-2xl font-bold tracking-tight">Clark</h3>
+                        <h3 class="mb-2 text-2xl font-bold tracking-tight">Bralni</h3>
                     </header>
                     <p class="font-normal h-3/4 text-gray-700">Having had the opportunity to test out [product name], I must say that I am thoroughly impressed. The [specific feature] really stood out to me, offering a level of convenience and efficiency that is unparalleled in the market. Additionally, the [another feature] surpassed my expectations, enhancing the overall user experience significantly. 
                     </p>

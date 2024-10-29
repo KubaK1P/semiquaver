@@ -26,7 +26,7 @@
             <h3 class="text-gray-800">Honorable mentions:</h3>
         </header>
         <ul class="h-1/2 flex flex-col justify-around text-gray-700">
-            <li>Bartosz Geodecki</li>
+            <li><a class="text-sky-600" href="https://github.com/1p22geo">Bartosz Geodecki</a></li>
             <li>Freddy Fazbear</li>
             <li>Weber Beton B30<br> super mocna mieszanka betonowa 25 kg
             </li>
