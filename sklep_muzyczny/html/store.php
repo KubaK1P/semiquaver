@@ -77,7 +77,6 @@
                 <div class="flex flex-wrap gap-8 pl-10 pr-10" id="products">
                     <?php
                     include "../components/product_comp_list.php";
-                    
                     $productCount = show_products((isset($_POST["search_term"]))? $_POST["search_term"]: "");
 
                     if ($productCount == 0) {

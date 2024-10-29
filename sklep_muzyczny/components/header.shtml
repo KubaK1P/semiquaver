@@ -7,7 +7,7 @@
             <li class="transition duration-350 w-[75px] p-2 rounded-md hover:bg-white"><a href="./store.php">Store</a></li>
             <li class="transition duration-350 w-[75px] p-2 rounded-md hover:bg-white"><a href="#">#</a></li>
             <li class="transition duration-350 w-[75px] p-2 rounded-md hover:bg-white"><a href="#">#</a></li>
-            <li class="transition duration-350 w-[75px] p-2 rounded-md hover:bg-white"><a href="#">#</a></li>
+            <li class="transition duration-350 w-[75px] p-2 rounded-md hover:bg-white"><a href="./login.php">Login</a></li>
         </ul>
     </nav>
 </header>
