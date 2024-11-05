@@ -15,36 +15,34 @@
         <?php
         include "../components/header.shtml";
         ?>
-        <main class="h-[80vh] flex justify-center items-center">
-            <div class="w-[45%] p-6">
-                <header class="p-2 text-[340%] font-semibold">
-                    <h1>Login</h1>
-                </header>
-                <form action="" class="flex flex-col gap-4">
-                    <label for="userName">Name: </label>
-                    <input type="text" id="userName" name="userName">
-                    <label for="userSurname">Surname:</label>
-                    <input type="text" id="userSurname" name="userSurname">
-                    <label for="userNumber">Phone number:</label>
-                    <input type="text" id="userNumber" name="userNumber">
-                    <label for="userEmail">E-mail:</label>
-                    <input type="text" id="userEmail" name="userEmail">
-                </form>
-            </div>
-            <div class="w-[45%] p-6">
-                <header class="p-2 text-[340%] font-semibold">
-                    <h1>Register</h1>
-                </header>
-                <form action="" class="flex flex-col gap-4">
-                    <label for="userName">Name: </label>
-                    <input type="text" id="userName" name="userName">
-                    <label for="userSurname">Surname:</label>
-                    <input type="text" id="userSurname" name="userSurname">
-                    <label for="userNumber">Phone number:</label>
-                    <input type="text" id="userNumber" name="userNumber">
-                    <label for="userEmail">E-mail:</label>
-                    <input type="text" id="userEmail" name="userEmail">
-                </form>
+    <main class="h-[100vh] flex justify-center items-center bg-gradient-to-b from-sky-200 from-0% to-white">
+            <div class="w-full flex gap-4 justify-around">
+                <div class="basis-40% p-6 min-w-[40%]">
+                    <header class="p-2 text-[340%] font-semibold">
+                        <h1>Login</h1>
+                    </header>
+                    <form action="" class="flex flex-col gap-4">
+                        <label for="userEmail">E-mail:</label>
+                        <input class="border-2 border-sky-500 rounded-md" type="text" id="userEmail" name="userEmail">
+                        <label for="userPassword">Password:</label>
+                        <input class="border-2 border-sky-500 rounded-md" type="password" id="userPassword" name="userPassword">
+                    </form>
+                </div>
+                <div class="basis-40% p-6 min-w-[40%]">
+                    <header class="p-2 text-[340%] font-semibold">
+                        <h1>Register</h1>
+                    </header>
+                    <form action="" class="flex flex-col gap-4">
+                        <label for="userName">Name: </label>
+                        <input class="border-2 border-sky-500 rounded-md" type="text" id="userName" name="userName">
+                        <label for="userSurname">Surname:</label>
+                        <input class="border-2 border-sky-500 rounded-md" type="text" id="userSurname" name="userSurname">
+                        <label for="userNumber">Phone number:</label>
+                        <input class="border-2 border-sky-500 rounded-md" type="text" id="userNumber" name="userNumber">
+                        <label for="userEmail">E-mail:</label>
+                        <input class="border-2 border-sky-500 rounded-md" type="text" id="userEmail" name="userEmail">
+                    </form>
+                </div>
             </div>
         </main>
         <?php

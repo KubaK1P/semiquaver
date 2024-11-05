@@ -77,7 +77,7 @@
                 <div class="flex flex-wrap gap-8 pl-10 pr-10" id="products">
                     <?php
                     include "../components/product_comp_list.php";
-                    $productCount = show_products((isset($_POST["search_term"]))? $_POST["search_term"]: "");
+                    $productCount = show_products((isset($_POST["search_term"]))? $_POST["search_term"]: "", 30, "");
 
                     if ($productCount == 0) {
                         echo "<h3 class=\"mb-4 text-lg text-bold text-gray-700\">Nothing found, perhaps you are searching for a medieval lute?</h3> <a href=\"https://en.wikipedia.org/wiki/Lute\" class=\"text-lg text-semibold text-sky-300\">Lute info</a>";
