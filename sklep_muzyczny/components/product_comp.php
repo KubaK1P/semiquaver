@@ -3,7 +3,7 @@ function product($productId, $productName, $productPrice, $productImage, $produc
 {
     echo <<<EOF
 <div class="basis-[$productWidth%] bg-white border border-gray-200 rounded-lg shadow">
-    <a href="./product.php?id=$productId">
+    <a href="./product.php?id=$productId" class="flex justify-center">
         <img class="rounded-t-lg h-[18rem]" src="$productImage" alt="product image" />
     </a>
     <div class="p-5">

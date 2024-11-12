@@ -48,13 +48,14 @@ $product = get_product_by_id($_GET["id"]);
             <header class="D="pl-4 text-3xl text-gray-800 font-bold">Products in the <?php echo $product["Nazwa_kategorii_produktu"]; ?> category:</h2>
             </header>
             <div class="flex flex-wrap justify-between gap-6 pl-10 pr-10">
-                <?php 
-                    $products = show_products($product["Nazwa_kategorii_produktu"], 20, $product["Id_produktu"]);
+                <?php
+                    $products = show_products($product["Nazwa_kategorii_produktu"], 19, $product["Id_produktu"]);
                 ?>
             </div>
         </aside>
         <section class="h-[60vh] p-6">
             <!-- Reviews here probably -->
+            <!-- To Do -->
         </section>
         <?php
         include "../components/footer.shtml";

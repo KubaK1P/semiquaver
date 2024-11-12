@@ -25,9 +25,10 @@
         </header>
         <div class="flex min-h-[60vh] p-6">
             <aside class="flex flex-col basis-[35%] p-2">
-            <section>
+                <section>
                     <header class="text-3xl text-semibold p-2">
                         <h2>Sorting</h2>
+                        <!-- Add sorting, or at least categories -->
                     </header>
                     <ul>
                         <li><a href="#">Price - asc</a></li>
