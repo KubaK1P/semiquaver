@@ -1,16 +1,16 @@
 <?php
-function product($productId, $productName, $productPrice, $productImage, $productCategory, $productWidth)
+function product($productId, $productName, $productPrice, $productImage, $categoryId, $productCategory, $productWidth)
 {
     echo <<<EOF
-<div class="basis-[$productWidth%] bg-white border border-gray-200 rounded-lg shadow">
-    <a href="./product.php?id=$productId" class="flex justify-center">
-        <img class="rounded-t-lg h-[18rem]" src="$productImage" alt="product image" />
+<div class="basis-[$productWidth%] bg-white border border-gray-200 rounded-lg shadow flex flex-col justify-between">
+    <a href="./product.php?id=$productId" class="h-[60%] flex justify-center">
+        <img class="rounded-t-lg object-cover" src="$productImage" alt="product image" />
     </a>
     <div class="p-5">
         <a href="./product.php?id=$productId">
             <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">$productName</h5>
         </a>
-        <p class="mb-3 font-normal text-gray-500 ">$productCategory</p>
+        <a href="./store.php?category=$categoryId#searchResult" class="mb-6 font-normal text-gray-500 hover:text-sky-600">$productCategory</a>
         <div class="flex justify-between items-center">
             <!-- Get atribute with php -->
         <a href="./product.php?id=$productId" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center border-2 border-sky-300 text-gray-800 bg-sky-100 hover:bg-sky-200 rounded-lg shadow">

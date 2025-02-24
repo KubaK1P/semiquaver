@@ -9,7 +9,7 @@ $term = null;
 
 if (isset($_GET['search_term'])) {
     $term = '%' . $_GET['search_term'] . '%';  
-    $query = "SELECT produkt.Id_produktu, produkt.Nazwa_produktu, produkt.Opis_produktu, produkt.Cena_jednostkowa, produkt.Zdjecie_produktu, kategoria_produktu.Nazwa_kategorii_produktu 
+    $query = "SELECT produkt.Id_produktu, produkt.Nazwa_produktu, produkt.Opis_produktu, produkt.Cena_jednostkowa, produkt.Zdjecie_produktu, kategoria_produktu.Nazwa_kategorii_produktu, kategoria_produktu.Id_kategorii_produktu  
               FROM produkt 
               INNER JOIN kategoria_produktu ON produkt.Id_kategorii_produktu = kategoria_produktu.Id_kategorii_produktu 
               WHERE produkt.Nazwa_produktu LIKE ? OR kategoria_produktu.Nazwa_kategorii_produktu LIKE ?;";
@@ -22,7 +22,7 @@ if (isset($_GET['search_term'])) {
     mysqli_stmt_bind_param($stmt, 'ss', $term, $term);
 } else if (isset($_GET['category'])) {
     $categoryTerm = $_GET['category'];  
-    $query = "SELECT produkt.Id_produktu, produkt.Nazwa_produktu, produkt.Opis_produktu, produkt.Cena_jednostkowa, produkt.Zdjecie_produktu, kategoria_produktu.Nazwa_kategorii_produktu 
+    $query = "SELECT produkt.Id_produktu, produkt.Nazwa_produktu, produkt.Opis_produktu, produkt.Cena_jednostkowa, produkt.Zdjecie_produktu, kategoria_produktu.Nazwa_kategorii_produktu , kategoria_produktu.Id_kategorii_produktu  
               FROM produkt 
               INNER JOIN kategoria_produktu ON produkt.Id_kategorii_produktu = kategoria_produktu.Id_kategorii_produktu 
               WHERE kategoria_produktu.Id_kategorii_produktu = ? ;";
@@ -34,7 +34,7 @@ if (isset($_GET['search_term'])) {
 
     mysqli_stmt_bind_param($stmt, 'i', $categoryTerm);
 } else {
-    $query = "SELECT produkt.Id_produktu, produkt.Nazwa_produktu, produkt.Opis_produktu, produkt.Cena_jednostkowa, produkt.Zdjecie_produktu, kategoria_produktu.Nazwa_kategorii_produktu 
+    $query = "SELECT produkt.Id_produktu, produkt.Nazwa_produktu, produkt.Opis_produktu, produkt.Cena_jednostkowa, produkt.Zdjecie_produktu, kategoria_produktu.Nazwa_kategorii_produktu, kategoria_produktu.Id_kategorii_produktu  
               FROM produkt 
               INNER JOIN kategoria_produktu ON produkt.Id_kategorii_produktu = kategoria_produktu.Id_kategorii_produktu;";
 
@@ -86,7 +86,7 @@ mysqli_close($conn);
             </div>
         </header>
         <div class="flex min-h-[60vh] p-6">
-            <aside class="flex flex-col basis-[35%] p-2">
+            <aside class="flex flex-col basis-[30%] p-2">
                 <section>
                     <header class="text-3xl text-semibold p-2">
                         <h2>Sorting</h2>
@@ -119,7 +119,7 @@ mysqli_close($conn);
                     </ul>
                 </section>
             </aside>
-            <main class="basis-[65%] p-2">
+            <main class="basis-[70%] p-2">
                 <header class="flex text-4xl text-bold mb-6">
                     <h2 class="text-5xl basis-1/4 p-2 pl-4">Products</h2>
                     <form action="./store.php#searchResult" class="text-2xl text-right leading-[50px] basis-1/4 p-2 pl-4 pr-4 text-semibold text-sky-300">
@@ -137,13 +137,13 @@ mysqli_close($conn);
                         </button>
                     </form>
                 </header>
-                <div class="flex flex-wrap gap-8 pl-10 pr-10" id="products">
+                <div class="grid grid-cols-[1fr_1fr_1fr_1fr] gap-6" id="products">
                     <?php
                     if ($productCount == 0) {
                         echo "<h3 class=\"mb-4 text-lg text-bold text-gray-700\">Nothing found, perhaps you are searching for a medieval lute?</h3> <a href=\"https://en.wikipedia.org/wiki/Lute\" class=\"text-lg text-semibold text-sky-300\">Lute info</a>";
                     } else {
                         foreach ($products as $product) {
-                            echo product($product["Id_produktu"], $product["Nazwa_produktu"], $product["Cena_jednostkowa"], $product["Zdjecie_produktu"], $product["Nazwa_kategorii_produktu"], 25);
+                            echo product($product["Id_produktu"], $product["Nazwa_produktu"], $product["Cena_jednostkowa"], $product["Zdjecie_produktu"], $product["Id_kategorii_produktu"], $product["Nazwa_kategorii_produktu"], 25);
                         }
                     }
                     ?>
