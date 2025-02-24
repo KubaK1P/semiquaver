@@ -1,6 +1,48 @@
+<?php 
+
+require("../scripts/mysql_connect.php");
+include "../components/product_comp.php";
+
+
+$conn = connect();
+$term = null;
+
+if (isset($_GET['search_term'])) {
+    $term = '%' . $_GET['search_term'] . '%';  
+    $query = "SELECT produkt.Id_produktu, produkt.Nazwa_produktu, produkt.Opis_produktu, produkt.Cena_jednostkowa, produkt.Zdjecie_produktu, kategoria_produktu.Nazwa_kategorii_produktu 
+              FROM produkt 
+              INNER JOIN kategoria_produktu ON produkt.Id_kategorii_produktu = kategoria_produktu.Id_kategorii_produktu 
+              WHERE produkt.Nazwa_produktu LIKE ? OR kategoria_produktu.Nazwa_kategorii_produktu LIKE ?;";
+
+    $stmt = mysqli_prepare($conn, $query);
+    if (!$stmt) {
+        die("MySQL prepare statement failed: " . mysqli_error($conn));
+    }
+
+    mysqli_stmt_bind_param($stmt, 'ss', $term, $term);
+} else {
+    $query = "SELECT produkt.Id_produktu, produkt.Nazwa_produktu, produkt.Opis_produktu, produkt.Cena_jednostkowa, produkt.Zdjecie_produktu, kategoria_produktu.Nazwa_kategorii_produktu 
+              FROM produkt 
+              INNER JOIN kategoria_produktu ON produkt.Id_kategorii_produktu = kategoria_produktu.Id_kategorii_produktu;";
+
+    $stmt = mysqli_prepare($conn, $query);
+    if (!$stmt) {
+        die("MySQL prepare statement failed: " . mysqli_error($conn));
+    }
+}
+
+if (!mysqli_stmt_execute($stmt)) {
+    die("Statement execution failed: " . mysqli_stmt_error($stmt));
+}
+
+$result = mysqli_stmt_get_result($stmt);
+$products = mysqli_fetch_all($result, MYSQLI_ASSOC);
+$productCount = count($products);
+
+
+?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -63,7 +105,7 @@
                     <form action="./store.php#searchResult" class="text-2xl text-right leading-[50px] basis-1/4 p-2 pl-4 pr-4 text-semibold text-sky-300">
                         <button type="submit">Clear</button>
                     </form>
-                    <form action="./store.php#searchResult" method="post" class="flex basis-1/2 gap-4 rounded-md border-2 border-sky-500 overflow-hidden mx-auto">
+                    <form action="./store.php#searchResult" method="get" class="flex basis-1/2 gap-4 rounded-md border-2 border-sky-500 overflow-hidden mx-auto">
                         <input type="text" placeholder="Search products" name="search_term"
                             class="w-full outline-none bg-white text-gray-700 text-lg px-4 py-3" />
                         <button value="" type='submit' class="flex items-center justify-center bg-sky-400 px-5">
@@ -77,11 +119,12 @@
                 </header>
                 <div class="flex flex-wrap gap-8 pl-10 pr-10" id="products">
                     <?php
-                    include "../components/product_comp_list.php";
-                    $productCount = show_products((isset($_POST["search_term"]))? $_POST["search_term"]: "", 30, "");
-
                     if ($productCount == 0) {
                         echo "<h3 class=\"mb-4 text-lg text-bold text-gray-700\">Nothing found, perhaps you are searching for a medieval lute?</h3> <a href=\"https://en.wikipedia.org/wiki/Lute\" class=\"text-lg text-semibold text-sky-300\">Lute info</a>";
+                    } else {
+                        foreach ($products as $product) {
+                            echo product($product["Id_produktu"], $product["Nazwa_produktu"], $product["Cena_jednostkowa"], $product["Zdjecie_produktu"], $product["Nazwa_kategorii_produktu"], 25);
+                        }
                     }
                     ?>
                 </div>
