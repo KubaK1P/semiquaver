@@ -20,6 +20,19 @@ if (isset($_GET['search_term'])) {
     }
 
     mysqli_stmt_bind_param($stmt, 'ss', $term, $term);
+} else if (isset($_GET['category'])) {
+    $categoryTerm = $_GET['category'];  
+    $query = "SELECT produkt.Id_produktu, produkt.Nazwa_produktu, produkt.Opis_produktu, produkt.Cena_jednostkowa, produkt.Zdjecie_produktu, kategoria_produktu.Nazwa_kategorii_produktu 
+              FROM produkt 
+              INNER JOIN kategoria_produktu ON produkt.Id_kategorii_produktu = kategoria_produktu.Id_kategorii_produktu 
+              WHERE kategoria_produktu.Id_kategorii_produktu = ? ;";
+
+    $stmt = mysqli_prepare($conn, $query);
+    if (!$stmt) {
+        die("MySQL prepare statement failed: " . mysqli_error($conn));
+    }
+
+    mysqli_stmt_bind_param($stmt, 'i', $categoryTerm);
 } else {
     $query = "SELECT produkt.Id_produktu, produkt.Nazwa_produktu, produkt.Opis_produktu, produkt.Cena_jednostkowa, produkt.Zdjecie_produktu, kategoria_produktu.Nazwa_kategorii_produktu 
               FROM produkt 
@@ -40,6 +53,13 @@ $products = mysqli_fetch_all($result, MYSQLI_ASSOC);
 $productCount = count($products);
 
 
+$query = "SELECT kategoria_produktu.Id_kategorii_produktu, kategoria_produktu.Nazwa_kategorii_produktu 
+            FROM kategoria_produktu;";
+
+$result = mysqli_query($conn, $query);
+$categories = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+mysqli_close($conn);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -82,10 +102,10 @@ $productCount = count($products);
                     <header class="text-3xl text-semibold p-2">
                         <h2>Categories</h2>
                     </header>
-                    <ul>
-                        <li><a href="#">Category</a></li>
-                        <li><a href="#">Category</a></li>
-                        <li><a href="#">Category</a></li>
+                    <ul class="pl-6">
+                        <?php foreach ($categories as $category) { ?>
+                        <li><a href="./store.php?category=<?php echo $category["Id_kategorii_produktu"]; ?>#searchResult" class="hover:text-sky-600"><?php echo $category["Nazwa_kategorii_produktu"]; ?></a></li>
+                        <?php } ?>
                     </ul>
                 </section>
                 <section>
