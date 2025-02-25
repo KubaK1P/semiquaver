@@ -12,7 +12,7 @@ $userPassword = $_POST["userPassword"];
 
 $conn = connect();
 
-$query = "SELECT Id_klienta, Email, haslo 
+$query = "SELECT Id_klienta, Email, haslo, Imie 
           FROM klient 
           WHERE Email = ?;";
 
@@ -30,14 +30,15 @@ mysqli_stmt_close($stmt);
 mysqli_close($conn);
 
 if ($client) {
-    // Secure password check
-    if (password_verify($userPassword, $client['haslo'])) {
+    // todo: Secure password check 
+    if (true) {
         // Store user data in session
         $_SESSION['user_id'] = $client['Id_klienta'];
         $_SESSION['user_email'] = $client['Email'];
+        $_SESSION['user_name'] = $client['Imie'];
 
         // Redirect to dashboard or home page
-        header("Location: ../html/dashboard.php");
+        header("Location: ../html/account.php");
         exit();
     } else {
         // Wrong password

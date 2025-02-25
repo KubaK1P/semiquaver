@@ -1,3 +1,16 @@
+<?php 
+
+session_start();
+//maybe more secure
+if (!isset($_SESSION["user_id"])) {
+    header("Location: ../html/login.php?mess=login_first");
+    exit();
+}
+
+$userId = $_SESSION["user_id"];
+$userEmail = $_SESSION["user_email"] ?? "Unknown";
+$userName = $_SESSION["user_name"] ?? "Guest";
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,8 +28,8 @@
         <?php
         include "../components/header.shtml";
         ?>
-        <main class="bg-gradient-to-b from-sky-200 from-0% to-white">
-            Hello, user
+        <main class="bg-gradient-to-b from-sky-200 from-0% to-white pt-[120px]">
+            <h1 class="text-4xl">Hello, <?php echo $userName; ?></h1>
         </main>
         <?php
         include "../components/footer.shtml";
