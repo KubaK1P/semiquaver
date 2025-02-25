@@ -87,7 +87,7 @@ mysqli_close($conn);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Semiquaver -
-
+        <?php echo $product["Nazwa_produktu"]; ?>
     </title> 
     <!-- Maybe a  <product name> in the title-->
      <link rel="stylesheet" href="../css/background_image.css">
@@ -98,8 +98,8 @@ mysqli_close($conn);
         <?php
         include "../components/header.shtml";
         ?>
-        <main class="h-[75vh] p-6 flex flex-col justify-center">
-            <div class="flex justify-around">
+        <main class="p-6 flex flex-col justify-center">
+            <div class="mt-[108px] flex justify-around">
                 <header class="max-w-[40%] p-6"> 
                     <h1 class="mb-4 tracking-wide text-4xl text-gray-800 font-bold"><?php echo $product["Nazwa_produktu"]; ?></h1>
                     <a href="store.php?category=<?php echo $product["Id_kategorii_produktu"]; ?>" class="text-2xl text-gray-500 font-semibold hover:text-sky-600"><?php echo $product["Nazwa_kategorii_produktu"]; ?></a>
@@ -121,9 +121,9 @@ mysqli_close($conn);
             </div>
         </main>
         <aside class="h-[60vh] p-6">
-            <header class="pl-4 text-3xl text-gray-800 font-bold">Products in the <?php echo $product["Nazwa_kategorii_produktu"]; ?> category:</h2>
+            <header class="pl-4 text-3xl text-gray-800 font-bold mb-6">Products in the <?php echo $product["Nazwa_kategorii_produktu"]; ?> category:</h2>
             </header>
-            <div class="grid grid-cols-[1fr_1fr_1fr_1fr_1fr] gap-6 pl-10 pr-10">
+            <div class="grid grid-cols-[1fr_1fr_1fr_1fr_1fr_1fr] gap-6 pl-10 pr-10">
             <?php
                     if ($categoryProductsCount == 0) {
                         echo "<h3 class=\"mb-4 text-lg text-bold text-gray-700\">Nothing found in the category, perhaps you are searching for a medieval lute?</h3> <a href=\"https://en.wikipedia.org/wiki/Lute\" class=\"text-lg text-semibold text-sky-300\">Lute info</a>";

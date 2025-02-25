@@ -1,3 +1,11 @@
+<?php 
+
+$status = null;
+
+if (isset($_GET["mess"])) {
+    $status = $_GET["mess"];
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -21,11 +29,12 @@
                     <header class="p-2 text-[340%] font-semibold mb-3">
                         <h1>Login</h1>
                     </header>
-                    <form action="" method="post" class="p-4 bg-sky-100 shadow-xl rounded-md flex flex-col gap-4">
+                    <form action="../handlers/account_login.php" method="post" class="p-4 bg-sky-100 shadow-xl rounded-md flex flex-col gap-4">
                         <label for="userEmail">E-mail:</label>
                         <input class="shadow-md w-[55%] border-2 border-sky-500 rounded-md p-3" placeholder="..." type="email" id="userEmail" name="userEmail">
                         <label for="userPassword">Password:</label>
                         <input class="shadow-md w-[55%] border-2 border-sky-500 rounded-md p-3" placeholder="..." type="password" id="userPassword" name="userPassword">
+                        <?php echo ($status)? "<p class='text-red-600 text-2xl'>" . $status . "</p>" : ""; ?>
                         <button type="submit" class="mt-4 w-[20%] self-start px-4 py-3 text-md font-medium text-center border-2 transition duration-350 border-sky-300 text-gray-900 bg-sky-200 hover:bg-sky-300 rounded-lg shadow">Zaloguj</button>
                     </form>
                 </div>
@@ -33,7 +42,7 @@
                     <header class="p-2 text-[340%] font-semibold mb-3">
                         <h1>Register</h1>
                     </header>
-                    <form action="" method="post" class="p-4 bg-sky-100 shadow-xl rounded-md flex justify-between gap-2 flex-wrap">
+                    <form action="../handlers/account_create.php" method="post" class="p-4 bg-sky-100 shadow-xl rounded-md flex justify-between gap-2 flex-wrap">
                         <div class="basis-[45%] flex flex-col gap-4">
                             <label for="userName">Name: </label>
                             <input class="shadow-md border-2 border-sky-500 rounded-md p-3" placeholder="..." type="text" id="userName" name="userName">
