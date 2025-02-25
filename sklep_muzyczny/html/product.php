@@ -9,10 +9,11 @@ $product_id = null;
 
 if (isset($_GET['id'])) {
     $product_id = $_GET['id'];  
-    $query = "SELECT produkt.Id_produktu, produkt.Nazwa_produktu, produkt.Opis_produktu, produkt.Cena_jednostkowa, produkt.Zdjecie_produktu, kategoria_produktu.Nazwa_kategorii_produktu, kategoria_produktu.Id_kategorii_produktu 
+    $query = "SELECT produkt.Id_produktu, produkt.Nazwa_produktu, produkt.Opis_produktu, produkt.Cena_jednostkowa, produkt.Zdjecie_produktu, 
+                     kategoria_produktu.Nazwa_kategorii_produktu, kategoria_produktu.Id_kategorii_produktu 
               FROM produkt 
               INNER JOIN kategoria_produktu ON produkt.Id_kategorii_produktu = kategoria_produktu.Id_kategorii_produktu 
-              WHERE produkt.Id_produktu = ? ;";
+              WHERE produkt.Id_produktu = ?;";
 
     $stmt = mysqli_prepare($conn, $query);
     if (!$stmt) {
@@ -21,7 +22,8 @@ if (isset($_GET['id'])) {
 
     mysqli_stmt_bind_param($stmt, 'i', $product_id);
 } else {
-    $query = "SELECT produkt.Id_produktu, produkt.Nazwa_produktu, produkt.Opis_produktu, produkt.Cena_jednostkowa, produkt.Zdjecie_produktu, kategoria_produktu.Nazwa_kategorii_produktu 
+    $query = "SELECT produkt.Id_produktu, produkt.Nazwa_produktu, produkt.Opis_produktu, produkt.Cena_jednostkowa, produkt.Zdjecie_produktu, 
+                     kategoria_produktu.Nazwa_kategorii_produktu 
               FROM produkt 
               INNER JOIN kategoria_produktu ON produkt.Id_kategorii_produktu = kategoria_produktu.Id_kategorii_produktu;";
 
@@ -31,17 +33,53 @@ if (isset($_GET['id'])) {
     }
 }
 
+// **Fix: Execute statement before fetching result**
 if (!mysqli_stmt_execute($stmt)) {
     die("Statement execution failed: " . mysqli_stmt_error($stmt));
 }
 
 $result = mysqli_stmt_get_result($stmt);
 $products = mysqli_fetch_all($result, MYSQLI_ASSOC);
-$productCount = count($products);
+
+mysqli_stmt_close($stmt);
+mysqli_close($conn);
+
+if (empty($products)) {
+    die("No products found.");
+}
 
 $product = $products[0];
 
+$conn = connect();
+
+$categoryId = $product["Id_kategorii_produktu"];  
+
+$query = "SELECT produkt.Id_produktu, produkt.Nazwa_produktu, produkt.Opis_produktu, produkt.Cena_jednostkowa, produkt.Zdjecie_produktu, 
+                 kategoria_produktu.Nazwa_kategorii_produktu, kategoria_produktu.Id_kategorii_produktu  
+          FROM produkt 
+          INNER JOIN kategoria_produktu ON produkt.Id_kategorii_produktu = kategoria_produktu.Id_kategorii_produktu 
+          WHERE kategoria_produktu.Id_kategorii_produktu = ? AND produkt.Id_produktu <> ? ;";
+
+$stmt = mysqli_prepare($conn, $query);
+if (!$stmt) {
+    die("MySQL prepare statement failed: " . mysqli_error($conn));
+}
+
+mysqli_stmt_bind_param($stmt, 'ii', $categoryId, $product["Id_produktu"]);
+
+// **Fix: Execute before fetching results**
+mysqli_stmt_execute($stmt);
+
+$result = mysqli_stmt_get_result($stmt);
+$categoryProducts = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+$categoryProductsCount = count($categoryProducts);
+
+// **Close resources properly**
+mysqli_stmt_close($stmt);
 mysqli_close($conn);
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -85,8 +123,16 @@ mysqli_close($conn);
         <aside class="h-[60vh] p-6">
             <header class="pl-4 text-3xl text-gray-800 font-bold">Products in the <?php echo $product["Nazwa_kategorii_produktu"]; ?> category:</h2>
             </header>
-            <div class="flex flex-wrap justify-between gap-6 pl-10 pr-10">
-
+            <div class="grid grid-cols-[1fr_1fr_1fr_1fr_1fr] gap-6 pl-10 pr-10">
+            <?php
+                    if ($categoryProductsCount == 0) {
+                        echo "<h3 class=\"mb-4 text-lg text-bold text-gray-700\">Nothing found in the category, perhaps you are searching for a medieval lute?</h3> <a href=\"https://en.wikipedia.org/wiki/Lute\" class=\"text-lg text-semibold text-sky-300\">Lute info</a>";
+                    } else {
+                        foreach ($categoryProducts as $categoryProduct) {
+                            echo product($categoryProduct["Id_produktu"], $categoryProduct["Nazwa_produktu"], $categoryProduct["Cena_jednostkowa"], $categoryProduct["Zdjecie_produktu"], $categoryProduct["Id_kategorii_produktu"], $categoryProduct["Nazwa_kategorii_produktu"], 25);
+                        }
+                    }
+                    ?>
             </div>
         </aside>
         <section class="h-[60vh] p-6">
