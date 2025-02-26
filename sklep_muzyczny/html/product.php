@@ -3,6 +3,12 @@
 require("../scripts/mysql_connect.php");
 include "../components/product_comp.php";
 
+$status = null;
+
+if (isset($_GET["mess"])) {
+    $status = $_GET["mess"];
+}
+
 
 $conn = connect();
 $product_id = null;
@@ -33,7 +39,7 @@ if (isset($_GET['id'])) {
     }
 }
 
-// **Fix: Execute statement before fetching result**
+// **Fix: Execute statement before fetching result
 if (!mysqli_stmt_execute($stmt)) {
     die("Statement execution failed: " . mysqli_stmt_error($stmt));
 }
@@ -67,7 +73,7 @@ if (!$stmt) {
 
 mysqli_stmt_bind_param($stmt, 'ii', $categoryId, $product["Id_produktu"]);
 
-// **Fix: Execute before fetching results**
+// **Fix: Execute before fetching results
 mysqli_stmt_execute($stmt);
 
 $result = mysqli_stmt_get_result($stmt);
@@ -75,7 +81,14 @@ $categoryProducts = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
 $categoryProductsCount = count($categoryProducts);
 
-// **Close resources properly**
+$query = "SELECT opinia.Tresc_opinii, klient.Imie, klient.Nazwisko 
+            FROM opinia INNER JOIN klient ON opinia.Id_klienta = klient.Id_klienta
+            WHERE opinia.Id_produktu = " . $product_id . ";";
+
+$result = mysqli_query($conn, $query);
+$reviews = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+// **Close resources properly
 mysqli_stmt_close($stmt);
 mysqli_close($conn);
 
@@ -99,9 +112,9 @@ mysqli_close($conn);
         include "../components/header.php";
         ?>
         <main class="p-6 flex flex-col justify-center">
-            <div class="mt-[108px] flex justify-around">
+            <div class="m-[250px_0_108px_0] flex justify-around">
                 <header class="max-w-[40%] p-6"> 
-                    <h1 class="mb-4 tracking-wide text-4xl text-gray-800 font-bold"><?php echo $product["Nazwa_produktu"]; ?></h1>
+                    <h1 class="mb-4 tracking-wide text-6xl text-gray-800 font-bold"><?php echo $product["Nazwa_produktu"]; ?></h1>
                     <a href="store.php?category=<?php echo $product["Id_kategorii_produktu"]; ?>" class="text-2xl text-gray-500 font-semibold hover:text-sky-600"><?php echo $product["Nazwa_kategorii_produktu"]; ?></a>
                     <p class="mt-3 mb-4 text-lg text-gray-600 font-medium"><?php echo $product["Opis_produktu"]; ?></p>
                     <div class="flex justify-between items-center">
@@ -120,8 +133,8 @@ mysqli_close($conn);
                 </div>
             </div>
         </main>
-        <aside class="h-[60vh] p-6">
-            <header class="pl-4 text-3xl text-gray-800 font-bold mb-6">Products in the <?php echo $product["Nazwa_kategorii_produktu"]; ?> category:</h2>
+        <aside class=" p-6">
+            <h3 class="pl-4 text-5xl text-gray-800 font-bold mb-[60px] text-center">Other products in the <?php echo $product["Nazwa_kategorii_produktu"]; ?> category:</h3>
             </header>
             <div class="grid grid-cols-[1fr_1fr_1fr_1fr_1fr_1fr] gap-6 pl-10 pr-10">
             <?php
@@ -135,9 +148,29 @@ mysqli_close($conn);
                     ?>
             </div>
         </aside>
-        <section class="h-[60vh] p-6">
-            <!-- Reviews here probably -->
-            <!-- To Do -->
+        <section class="p-6">
+            <div class="flex flex-col items-center">
+                <h3 class="pl-4 text-5xl font-bold text-gray-800 mb-[60px] text-center">User reviews</h3>
+                <form action="../handlers/review.php?id=<?php echo $product["Id_produktu"]; ?>" method="post" class="flex flex-col gap-4 w-1/3">
+                    <label for="review" class="text-semibold text-3xl">Write your review: </label>
+                    <textarea class="shadow-md border-2 border-sky-300 rounded-md p-3 " type="text" id="review" name="review" rows="4"></textarea>
+                    <?php echo ($status)? "<p class='text-red-600 text-2xl'>" . $status . "</p>" : ""; ?>
+                    <button type="submit" class="w-full
+                     self-start px-4 py-3 text-md font-medium text-center border-2 transition duration-350 border-sky-300 text-gray-900 bg-sky-200 hover:bg-sky-300 rounded-lg shadow">Publish</button>
+                </form>
+            </div>
+            <div class="p-6">
+                <ul>
+                <?php foreach ($reviews as $review) { ?>
+                        <li class="ml-[10%] mt-[22px]">
+                            <h4 class="text-semibold text-3xl text-sky-600 mb-4"><?php echo $review["Imie"] . " " . $review["Nazwisko"]; ?></h4>
+                            <p class="text-xl text-gray-600 mb-6"><?php echo $review["Tresc_opinii"]; ?></p>
+                            <hr class="w-[88%]">
+                        </li>
+                        
+                        <?php } ?>
+                    </ul>
+            </div>
         </section>
         <?php
         include "../components/footer.shtml";
@@ -145,7 +178,3 @@ mysqli_close($conn);
     </div>
 </body>
 </html>
-
-<?php
-mysqli_close($conn);
-?>
