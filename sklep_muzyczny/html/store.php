@@ -7,6 +7,14 @@ include "../components/product_comp.php";
 $conn = connect();
 $term = null;
 
+// todo: sort query do later
+$sorting = $_GET["sort"] ?? null;
+
+if (!in_array($sorting, ["pasc", "pdesc", "n"])) {
+    $sorting = null;
+}
+
+
 if (isset($_GET['search_term'])) {
     $term = '%' . $_GET['search_term'] . '%';  
     $query = "SELECT produkt.Id_produktu, produkt.Nazwa_produktu, produkt.Opis_produktu, produkt.Cena_jednostkowa, produkt.Zdjecie_produktu, kategoria_produktu.Nazwa_kategorii_produktu, kategoria_produktu.Id_kategorii_produktu  
