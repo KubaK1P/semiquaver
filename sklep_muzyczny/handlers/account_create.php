@@ -28,7 +28,7 @@ if (!preg_match("/^[0-9]{9,15}$/", $userNumber)) {  // Adjust regex as per your 
     header("Location: ../html/login.php?mess=invalid_phone");
     exit();
 }
-if ($userAge < 18) {
+if ($userAge < 12) {
     header("Location: ../html/login.php?mess=age_restriction");
     exit();
 }
