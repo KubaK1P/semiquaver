@@ -10,48 +10,49 @@ $term = null;
 // todo: sort query do later
 $sorting = $_GET["sort"] ?? null;
 
-if (!in_array($sorting, ["pasc", "pdesc", "n"])) {
+if (!in_array($sorting, ["ASC", "DESC"])) {
     $sorting = null;
 }
 
+$searchTerm = $_GET['search_term'] ?? null;
+$categoryTerm = $_GET['category'] ?? null;
 
-if (isset($_GET['search_term'])) {
-    $term = '%' . $_GET['search_term'] . '%';  
-    $query = "SELECT produkt.Id_produktu, produkt.Nazwa_produktu, produkt.Opis_produktu, produkt.Cena_jednostkowa, produkt.Zdjecie_produktu, kategoria_produktu.Nazwa_kategorii_produktu, kategoria_produktu.Id_kategorii_produktu  
+if ($searchTerm) {
+    $term = '%' . $searchTerm . '%';
+    $query = "SELECT produkt.Id_produktu, produkt.Nazwa_produktu, produkt.Opis_produktu, produkt.Cena_jednostkowa, 
+                     produkt.Zdjecie_produktu, kategoria_produktu.Nazwa_kategorii_produktu, kategoria_produktu.Id_kategorii_produktu  
               FROM produkt 
               INNER JOIN kategoria_produktu ON produkt.Id_kategorii_produktu = kategoria_produktu.Id_kategorii_produktu 
-              WHERE produkt.Nazwa_produktu LIKE ? OR kategoria_produktu.Nazwa_kategorii_produktu LIKE ?;";
-
+              WHERE produkt.Nazwa_produktu LIKE ? OR kategoria_produktu.Nazwa_kategorii_produktu LIKE ? " . (($sorting)? "ORDER BY produkt.Cena_jednostkowa " . $sorting : "");
+    echo $query;
     $stmt = mysqli_prepare($conn, $query);
-    if (!$stmt) {
-        die("MySQL prepare statement failed: " . mysqli_error($conn));
-    }
-
     mysqli_stmt_bind_param($stmt, 'ss', $term, $term);
-} else if (isset($_GET['category'])) {
-    $categoryTerm = $_GET['category'];  
-    $query = "SELECT produkt.Id_produktu, produkt.Nazwa_produktu, produkt.Opis_produktu, produkt.Cena_jednostkowa, produkt.Zdjecie_produktu, kategoria_produktu.Nazwa_kategorii_produktu , kategoria_produktu.Id_kategorii_produktu  
+
+} elseif ($categoryTerm) {
+    $query = "SELECT produkt.Id_produktu, produkt.Nazwa_produktu, produkt.Opis_produktu, produkt.Cena_jednostkowa, 
+                     produkt.Zdjecie_produktu, kategoria_produktu.Nazwa_kategorii_produktu, kategoria_produktu.Id_kategorii_produktu  
               FROM produkt 
               INNER JOIN kategoria_produktu ON produkt.Id_kategorii_produktu = kategoria_produktu.Id_kategorii_produktu 
-              WHERE kategoria_produktu.Id_kategorii_produktu = ? ;";
+              WHERE kategoria_produktu.Id_kategorii_produktu = ? " . (($sorting)? "ORDER BY produkt.Cena_jednostkowa " . $sorting : "");
 
     $stmt = mysqli_prepare($conn, $query);
-    if (!$stmt) {
-        die("MySQL prepare statement failed: " . mysqli_error($conn));
-    }
-
     mysqli_stmt_bind_param($stmt, 'i', $categoryTerm);
+
 } else {
-    $query = "SELECT produkt.Id_produktu, produkt.Nazwa_produktu, produkt.Opis_produktu, produkt.Cena_jednostkowa, produkt.Zdjecie_produktu, kategoria_produktu.Nazwa_kategorii_produktu, kategoria_produktu.Id_kategorii_produktu  
+    $query = "SELECT produkt.Id_produktu, produkt.Nazwa_produktu, produkt.Opis_produktu, produkt.Cena_jednostkowa, 
+                     produkt.Zdjecie_produktu, kategoria_produktu.Nazwa_kategorii_produktu, kategoria_produktu.Id_kategorii_produktu  
               FROM produkt 
-              INNER JOIN kategoria_produktu ON produkt.Id_kategorii_produktu = kategoria_produktu.Id_kategorii_produktu;";
+              INNER JOIN kategoria_produktu ON produkt.Id_kategorii_produktu = kategoria_produktu.Id_kategorii_produktu " . (($sorting)? "ORDER BY produkt.Cena_jednostkowa " . $sorting : "");
 
     $stmt = mysqli_prepare($conn, $query);
-    if (!$stmt) {
-        die("MySQL prepare statement failed: " . mysqli_error($conn));
-    }
 }
 
+// Check if statement was prepared successfully
+if (!$stmt) {
+    die("MySQL prepare statement failed: " . mysqli_error($conn));
+}
+
+// Execute query and fetch results
 if (!mysqli_stmt_execute($stmt)) {
     die("Statement execution failed: " . mysqli_stmt_error($stmt));
 }
@@ -101,9 +102,8 @@ mysqli_close($conn);
                         <!-- Add sorting, or at least categories -->
                     </header>
                     <ul>
-                        <li><a href="#">Price - asc</a></li>
-                        <li><a href="#">Price - desc</a></li>
-                        <li><a href="#">Name</a></li>
+                        <li><a class="hover:text-sky-600" href="./store.php?sort=ASC<?php echo ($searchTerm)? "&search_term=" . $searchTerm : ""; ?><?php echo ($categoryTerm)? "&category=" . $categoryTerm : ""; ?>#searchResult">Price - from lowest</a></li>
+                        <li><a class="hover:text-sky-600" href="./store.php?sort=DESC<?php echo ($searchTerm)? "&search_term=" . $searchTerm : ""; ?><?php echo ($categoryTerm)? "&category=" . $categoryTerm : ""; ?>#searchResult">Price - from higest</a></li>
                     </ul>
                 </section>
                 <section>
