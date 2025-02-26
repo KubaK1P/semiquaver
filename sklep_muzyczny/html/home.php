@@ -11,7 +11,7 @@
 <body>
     <div class="w-full">
        <?php
-       include "../components/header.shtml";
+       include "../components/header.php";
        ?>
         <main class="h-[100vh] relative p-6" id="main">
             <header class="absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] text-white font-bold">

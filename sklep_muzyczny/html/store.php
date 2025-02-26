@@ -75,7 +75,7 @@ mysqli_close($conn);
 <body>
     <div class="">
         <?php
-        include "../components/header.shtml";
+        include "../components/header.php";
         ?>
         <header class="relative h-[100vh] text-[600%] text-white font-semibold p-6" id="store">
             <div class="flex flex-col items-center absolute top-[77%] left-[50%] translate-x-[-50%] translate-y-[-70%]">

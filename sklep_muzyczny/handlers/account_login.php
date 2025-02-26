@@ -31,7 +31,7 @@ mysqli_close($conn);
 
 if ($client) {
     // todo: Secure password check 
-    if (true) {
+    if (password_verify($userPassword, $client["haslo"])) {
         // Store user data in session
         $_SESSION['user_id'] = $client['Id_klienta'];
         $_SESSION['user_email'] = $client['Email'];

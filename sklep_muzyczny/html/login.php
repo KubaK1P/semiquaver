@@ -21,7 +21,7 @@ if (isset($_GET["mess"])) {
 <body>
     <div class="">
         <?php
-        include "../components/header.shtml";
+        include "../components/header.php";
         ?>
         <main class="h-[100vh] flex justify-center items-center bg-gradient-to-b from-sky-200 from-0% to-white">
             <div class="w-full flex gap-4 justify-around">
@@ -67,7 +67,7 @@ if (isset($_GET["mess"])) {
                                 <label for="userGenderM">Male </label>
                                 <input class="shadow-md " type="radio" id="userGenderM" name="userGender" value="M">
                                 <label for="userGenderF">Female </label>
-                                <input class="shadow-md " type="radio" id="userGenderF" name="userGender" value="F">
+                                <input class="shadow-md " type="radio" id="userGenderF" name="userGender" value="K">
                             </div>
                         </div>
                         <button type="submit" class="mt-4 w-[20%] basis-[100%] self-start px-4 py-3 text-md font-medium text-center border-2 transition duration-350 border-sky-300 text-gray-900 bg-sky-200 hover:bg-sky-300 rounded-lg shadow">Zarejestruj</button>

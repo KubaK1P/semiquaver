@@ -26,7 +26,7 @@ $userName = $_SESSION["user_name"] ?? "Guest";
 <body>
     <div class="">
         <?php
-        include "../components/header.shtml";
+        include "../components/header.php";
         ?>
         <main class="bg-gradient-to-b from-sky-200 from-0% to-white pt-[120px]">
             <h1 class="text-4xl">Hello, <?php echo $userName; ?></h1>

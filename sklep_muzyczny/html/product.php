@@ -96,7 +96,7 @@ mysqli_close($conn);
 <body>
     <div class="w-full">
         <?php
-        include "../components/header.shtml";
+        include "../components/header.php";
         ?>
         <main class="p-6 flex flex-col justify-center">
             <div class="mt-[108px] flex justify-around">

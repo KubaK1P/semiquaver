@@ -1,3 +1,8 @@
+<?php
+
+
+?>
+
 <header class="w-screen fixed z-10 flex justify-between p-6 bg-[#ffffffaa]">
     <header class="p-2">
         <h1 class="text-3xl font-semibold tracking-wide"> <a href="../html/home.php">Semiquaver</a></h1>
