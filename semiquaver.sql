@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Paź 24, 2024 at 11:52 AM
--- Wersja serwera: 10.4.32-MariaDB
--- Wersja PHP: 8.2.12
+-- Czas generowania: 26 Lut 2025, 10:37
+-- Wersja serwera: 10.4.24-MariaDB
+-- Wersja PHP: 8.1.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `semiquaver`
+-- Baza danych: `semiquaver`
 --
 
 -- --------------------------------------------------------
@@ -29,8 +29,13 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `gitara` (
   `Id_gitary` int(11) NOT NULL,
-  `Cena_jednostkowa` decimal(6,2) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `Cena_jednostkowa` decimal(6,2) NOT NULL,
+  `Id_pickupu` bigint(20) NOT NULL,
+  `Id_strun` bigint(20) NOT NULL,
+  `Id_gryfu` bigint(20) NOT NULL,
+  `Id_ciala` bigint(20) NOT NULL,
+  `Id_kluczy` bigint(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -42,7 +47,7 @@ CREATE TABLE `gitara_koszyk` (
   `Id_gitary` int(11) NOT NULL,
   `Id_koszyka` bigint(20) NOT NULL,
   `Ilosc` mediumint(8) UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -52,12 +57,12 @@ CREATE TABLE `gitara_koszyk` (
 
 CREATE TABLE `kategoria_produktu` (
   `Id_kategorii_produktu` int(11) NOT NULL,
-  `Nazwa_kategorii_produktu` varchar(34) NOT NULL,
+  `Nazwa_kategorii_produktu` varchar(60) NOT NULL,
   `Opis_kategorii_produktu` text DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `kategoria_produktu`
+-- Zrzut danych tabeli `kategoria_produktu`
 --
 
 INSERT INTO `kategoria_produktu` (`Id_kategorii_produktu`, `Nazwa_kategorii_produktu`, `Opis_kategorii_produktu`) VALUES
@@ -83,8 +88,18 @@ CREATE TABLE `klient` (
   `Miasto` varchar(24) NOT NULL,
   `Ulica` varchar(24) NOT NULL,
   `Wiek` int(3) DEFAULT NULL,
-  `Plec` enum('K','M') DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `Plec` enum('K','M') DEFAULT NULL,
+  `haslo` varchar(60) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Zrzut danych tabeli `klient`
+--
+
+INSERT INTO `klient` (`Id_klienta`, `Nazwisko`, `Imie`, `Nr_telefonu`, `Email`, `Miasto`, `Ulica`, `Wiek`, `Plec`, `haslo`) VALUES
+(1, 'test', 'test', '000000000', 'test@test.com', 'Test', 'Test', 99, 'M', '123'),
+(2, 'Kuś', 'Jakub', '516483644', 'kubakus2604@gmail.com', 'Gliwice', 'Tylna', 18, 'M', '$2y$10$Y5sfri6D1j24YLQaZPA7QuHe2COz7FWxQcsNvOQVPCwmAzdiZPAMS'),
+(3, 'Geodecki', 'Bartosz', '500500500', '1p22geo@gmail.com', 'Zabrze', 'Sobieskiego', 13, 'M', '$2y$10$OyNPuDkSzKLqLjR1sYIVTe5QDRfMqXab4LF5AUHDiJIZesP9rc.sG');
 
 -- --------------------------------------------------------
 
@@ -94,7 +109,7 @@ CREATE TABLE `klient` (
 
 CREATE TABLE `koszyk` (
   `Id_koszyka` bigint(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -108,7 +123,31 @@ CREATE TABLE `magazyn` (
   `Miasto` varchar(20) NOT NULL,
   `Ulica` varchar(20) DEFAULT NULL,
   `Nr_telefonu` varchar(20) DEFAULT 'NOT_ASSIGNED'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabeli dla tabeli `oferta`
+--
+
+CREATE TABLE `oferta` (
+  `Id_oferty` bigint(20) NOT NULL,
+  `Id_produktu` bigint(20) NOT NULL,
+  `Opis_oferty` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabeli dla tabeli `oferta_koszyk`
+--
+
+CREATE TABLE `oferta_koszyk` (
+  `Id_oferty` bigint(20) NOT NULL,
+  `Id_koszyka` bigint(20) NOT NULL,
+  `ilosc` mediumint(8) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -119,9 +158,9 @@ CREATE TABLE `magazyn` (
 CREATE TABLE `opinia` (
   `Id_opinii` bigint(20) NOT NULL,
   `Tresc_opinii` text NOT NULL,
-  `Id_klienta` bigint(20) DEFAULT NULL,
-  `Id_produktu` bigint(20) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `Id_oferty` bigint(20) NOT NULL,
+  `Id_klienta` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -136,16 +175,20 @@ CREATE TABLE `produkt` (
   `Cena_jednostkowa` decimal(8,2) NOT NULL,
   `Zdjecie_produktu` varchar(50) NOT NULL,
   `Id_kategorii_produktu` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `produkt`
+-- Zrzut danych tabeli `produkt`
 --
 
 INSERT INTO `produkt` (`Id_produktu`, `Nazwa_produktu`, `Opis_produktu`, `Cena_jednostkowa`, `Zdjecie_produktu`, `Id_kategorii_produktu`) VALUES
-(1, 'Pianino Yamaha', 'W naszych umysłach, pianino nie jest \"skończonym\" instrumentem; nieustannie staramy się go ulepszać dla tych, którzy lubią na nim grać. W dążeniu do \"ideału\" instrumentu - idealnego brzmienia, idealnego rezonansu, a nawet idealnego stylu - kontynuujemy proces ewolucji pianina na wiele sposobów, włączając w to stosowanie innowacyjnych metod produkcji oraz skrupulatny dobór nowych materiałów. Marka fortepianów Yamaha jest znana i kochana na całym świecie, a my dbamy o to, żeby podtrzymać tę reputację.', 6999.99, '../img/product-example.jpg', 1),
-(2, 'Skrzypce Stradivarius', 'SkrzepceSkrzepceSk\r\nrzepceSkrzepceSkrzepceSkrzepceSkrzepceSkrzepceSkrzepceSkrzepce                                                                                       SkrzepceSkrzepceSkr\r\nzepceSkrzepceSkrzepceSkrzepceSkrzepceSkrzepceSkrzepceSkrzepce', 300.00, '../img/product-example2.jpg', 8),
-(3, 'Flet prosty', 'Denerwujący instrument, który bardzo lubię', 30.00, '../img/product-example3.jpg', 9);
+(1, 'Pianino Yamaha', 'W naszych umysłach, pianino nie jest \"skończonym\" instrumentem; nieustannie staramy się go ulepszać dla tych, którzy lubią na nim grać. W dążeniu do \"ideału\" instrumentu - idealnego brzmienia, idealnego rezonansu, a nawet idealnego stylu - kontynuujemy proces ewolucji pianina na wiele sposobów, włączając w to stosowanie innowacyjnych metod produkcji oraz skrupulatny dobór nowych materiałów. Marka fortepianów Yamaha jest znana i kochana na całym świecie, a my dbamy o to, żeby podtrzymać tę reputację.', '6999.99', '../img/product-example.jpg', 1),
+(2, 'Skrzypce Stradivarius', 'SkrzepceSkrzepceSk\r\nrzepceSkrzepceSkrzepceSkrzepceSkrzepceSkrzepceSkrzepceSkrzepce                                                                                       SkrzepceSkrzepceSkr\r\nzepceSkrzepceSkrzepceSkrzepceSkrzepceSkrzepceSkrzepceSkrzepce', '300.00', '../img/product-example2.jpg', 8),
+(3, 'Flet prosty', 'Denerwujący instrument, który bardzo lubię', '30.00', '../img/product-example3.jpg', 9),
+(4, 'Altowka', 'Altowka fajna niedroga dobra cena na allergo i moderato tempo', '250.00', '../img/product-example2.jpg', 8),
+(5, 'Keyboard Donner', 'W naszych umysłach, keyboard nie jest \"skończonym\" instrumentem; nieustannie staramy się go ulepszać dla tych, którzy lubią na nim grać. W dążeniu do \"ideału\" instrumentu - idealnego brzmienia, idealnego rezonansu, a nawet idealnego stylu - kontynuujemy proces ewolucji pianina na wiele sposobów, włączając w to stosowanie innowacyjnych metod produkcji oraz skrupulatny dobór nowych materiałów. Marka fortepianów Yamaha jest znana i kochana na całym świecie, a my dbamy o to, żeby podtrzymać tę reputację.', '3000.00', '../img/keyboard.png', 1),
+(6, 'Keyboard Casio', 'W naszych umysłach, keyboard nie jest Casio zegarek, kasio keyboard muzyka, tak, superowy instrument', '737.00', '../img/casio.png', 1),
+(7, 'Flet poprzeczny', 'krzywy flet', '60.00', '../img/flet.png', 9);
 
 -- --------------------------------------------------------
 
@@ -157,7 +200,7 @@ CREATE TABLE `produkt_gitara` (
   `Id_produktu` bigint(20) NOT NULL,
   `Id_gitary` int(11) NOT NULL,
   `Ilosc` mediumint(8) UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -169,7 +212,7 @@ CREATE TABLE `produkt_koszyk` (
   `Id_produktu` bigint(20) NOT NULL,
   `Id_koszyka` bigint(20) NOT NULL,
   `ilosc` mediumint(8) UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -181,7 +224,7 @@ CREATE TABLE `stan_magazynu` (
   `Id_magazynu` int(11) NOT NULL,
   `Id_produktu` bigint(20) NOT NULL,
   `ilosc` int(10) UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -197,7 +240,7 @@ CREATE TABLE `zamowienie` (
   `Id_koszyka` bigint(20) NOT NULL,
   `Cena_calkowita` decimal(10,2) NOT NULL,
   `Status` enum('Przyjete','Oplacone','W_trakcie','Wykonane','Anulowane') DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Indeksy dla zrzutów tabel
@@ -207,7 +250,12 @@ CREATE TABLE `zamowienie` (
 -- Indeksy dla tabeli `gitara`
 --
 ALTER TABLE `gitara`
-  ADD PRIMARY KEY (`Id_gitary`);
+  ADD PRIMARY KEY (`Id_gitary`),
+  ADD KEY `Id_pickupu` (`Id_pickupu`),
+  ADD KEY `Id_strun` (`Id_strun`),
+  ADD KEY `Id_gryfu` (`Id_gryfu`),
+  ADD KEY `Id_ciala` (`Id_ciala`),
+  ADD KEY `Id_kluczy` (`Id_kluczy`);
 
 --
 -- Indeksy dla tabeli `gitara_koszyk`
@@ -241,12 +289,26 @@ ALTER TABLE `magazyn`
   ADD PRIMARY KEY (`Id_magazynu`);
 
 --
+-- Indeksy dla tabeli `oferta`
+--
+ALTER TABLE `oferta`
+  ADD PRIMARY KEY (`Id_oferty`),
+  ADD KEY `Id_produktu` (`Id_produktu`);
+
+--
+-- Indeksy dla tabeli `oferta_koszyk`
+--
+ALTER TABLE `oferta_koszyk`
+  ADD KEY `Id_oferty` (`Id_oferty`),
+  ADD KEY `Id_koszyka` (`Id_koszyka`);
+
+--
 -- Indeksy dla tabeli `opinia`
 --
 ALTER TABLE `opinia`
   ADD PRIMARY KEY (`Id_opinii`),
-  ADD KEY `Id_klienta` (`Id_klienta`),
-  ADD KEY `Id_produktu` (`Id_produktu`);
+  ADD KEY `Id_oferty` (`Id_oferty`),
+  ADD KEY `Id_klienta` (`Id_klienta`);
 
 --
 -- Indeksy dla tabeli `produkt`
@@ -285,110 +347,139 @@ ALTER TABLE `zamowienie`
   ADD KEY `Id_koszyka` (`Id_koszyka`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT dla zrzuconych tabel
 --
 
 --
--- AUTO_INCREMENT for table `gitara`
+-- AUTO_INCREMENT dla tabeli `gitara`
 --
 ALTER TABLE `gitara`
   MODIFY `Id_gitary` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `kategoria_produktu`
+-- AUTO_INCREMENT dla tabeli `kategoria_produktu`
 --
 ALTER TABLE `kategoria_produktu`
   MODIFY `Id_kategorii_produktu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
--- AUTO_INCREMENT for table `klient`
+-- AUTO_INCREMENT dla tabeli `klient`
 --
 ALTER TABLE `klient`
-  MODIFY `Id_klienta` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id_klienta` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `koszyk`
+-- AUTO_INCREMENT dla tabeli `koszyk`
 --
 ALTER TABLE `koszyk`
   MODIFY `Id_koszyka` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `magazyn`
+-- AUTO_INCREMENT dla tabeli `magazyn`
 --
 ALTER TABLE `magazyn`
   MODIFY `Id_magazynu` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `opinia`
+-- AUTO_INCREMENT dla tabeli `oferta`
+--
+ALTER TABLE `oferta`
+  MODIFY `Id_oferty` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT dla tabeli `opinia`
 --
 ALTER TABLE `opinia`
   MODIFY `Id_opinii` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `produkt`
+-- AUTO_INCREMENT dla tabeli `produkt`
 --
 ALTER TABLE `produkt`
-  MODIFY `Id_produktu` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `Id_produktu` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT for table `zamowienie`
+-- AUTO_INCREMENT dla tabeli `zamowienie`
 --
 ALTER TABLE `zamowienie`
   MODIFY `Id_zamowienia` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
--- Constraints for dumped tables
+-- Ograniczenia dla zrzutów tabel
 --
 
 --
--- Constraints for table `gitara_koszyk`
+-- Ograniczenia dla tabeli `gitara`
+--
+ALTER TABLE `gitara`
+  ADD CONSTRAINT `gitara_ibfk_1` FOREIGN KEY (`Id_pickupu`) REFERENCES `produkt` (`Id_produktu`),
+  ADD CONSTRAINT `gitara_ibfk_2` FOREIGN KEY (`Id_strun`) REFERENCES `produkt` (`Id_produktu`),
+  ADD CONSTRAINT `gitara_ibfk_3` FOREIGN KEY (`Id_gryfu`) REFERENCES `produkt` (`Id_produktu`),
+  ADD CONSTRAINT `gitara_ibfk_4` FOREIGN KEY (`Id_ciala`) REFERENCES `produkt` (`Id_produktu`),
+  ADD CONSTRAINT `gitara_ibfk_5` FOREIGN KEY (`Id_kluczy`) REFERENCES `produkt` (`Id_produktu`);
+
+--
+-- Ograniczenia dla tabeli `gitara_koszyk`
 --
 ALTER TABLE `gitara_koszyk`
   ADD CONSTRAINT `gitara_koszyk_ibfk_1` FOREIGN KEY (`Id_gitary`) REFERENCES `gitara` (`Id_gitary`),
   ADD CONSTRAINT `gitara_koszyk_ibfk_2` FOREIGN KEY (`Id_koszyka`) REFERENCES `koszyk` (`Id_koszyka`);
 
 --
--- Constraints for table `koszyk`
+-- Ograniczenia dla tabeli `koszyk`
 --
 ALTER TABLE `koszyk`
   ADD CONSTRAINT `koszyk_ibfk_1` FOREIGN KEY (`Id_koszyka`) REFERENCES `klient` (`Id_klienta`);
 
 --
--- Constraints for table `opinia`
+-- Ograniczenia dla tabeli `oferta`
 --
-ALTER TABLE `opinia`
-  ADD CONSTRAINT `opinia_ibfk_2` FOREIGN KEY (`Id_klienta`) REFERENCES `klient` (`Id_klienta`),
-  ADD CONSTRAINT `opinia_ibfk_3` FOREIGN KEY (`Id_produktu`) REFERENCES `produkt` (`Id_produktu`);
+ALTER TABLE `oferta`
+  ADD CONSTRAINT `oferta_ibfk_1` FOREIGN KEY (`Id_produktu`) REFERENCES `produkt` (`Id_produktu`);
 
 --
--- Constraints for table `produkt`
+-- Ograniczenia dla tabeli `oferta_koszyk`
+--
+ALTER TABLE `oferta_koszyk`
+  ADD CONSTRAINT `oferta_koszyk_ibfk_1` FOREIGN KEY (`Id_oferty`) REFERENCES `oferta` (`Id_oferty`),
+  ADD CONSTRAINT `oferta_koszyk_ibfk_2` FOREIGN KEY (`Id_koszyka`) REFERENCES `koszyk` (`Id_koszyka`);
+
+--
+-- Ograniczenia dla tabeli `opinia`
+--
+ALTER TABLE `opinia`
+  ADD CONSTRAINT `opinia_ibfk_1` FOREIGN KEY (`Id_oferty`) REFERENCES `oferta` (`Id_oferty`),
+  ADD CONSTRAINT `opinia_ibfk_2` FOREIGN KEY (`Id_klienta`) REFERENCES `klient` (`Id_klienta`);
+
+--
+-- Ograniczenia dla tabeli `produkt`
 --
 ALTER TABLE `produkt`
   ADD CONSTRAINT `produkt_ibfk_1` FOREIGN KEY (`Id_kategorii_produktu`) REFERENCES `kategoria_produktu` (`Id_kategorii_produktu`);
 
 --
--- Constraints for table `produkt_gitara`
+-- Ograniczenia dla tabeli `produkt_gitara`
 --
 ALTER TABLE `produkt_gitara`
   ADD CONSTRAINT `produkt_gitara_ibfk_1` FOREIGN KEY (`Id_produktu`) REFERENCES `produkt` (`Id_produktu`),
   ADD CONSTRAINT `produkt_gitara_ibfk_2` FOREIGN KEY (`Id_gitary`) REFERENCES `gitara` (`Id_gitary`);
 
 --
--- Constraints for table `produkt_koszyk`
+-- Ograniczenia dla tabeli `produkt_koszyk`
 --
 ALTER TABLE `produkt_koszyk`
   ADD CONSTRAINT `produkt_koszyk_ibfk_1` FOREIGN KEY (`Id_produktu`) REFERENCES `produkt` (`Id_produktu`),
   ADD CONSTRAINT `produkt_koszyk_ibfk_2` FOREIGN KEY (`Id_koszyka`) REFERENCES `koszyk` (`Id_koszyka`);
 
 --
--- Constraints for table `stan_magazynu`
+-- Ograniczenia dla tabeli `stan_magazynu`
 --
 ALTER TABLE `stan_magazynu`
   ADD CONSTRAINT `stan_magazynu_ibfk_1` FOREIGN KEY (`Id_magazynu`) REFERENCES `magazyn` (`Id_magazynu`),
   ADD CONSTRAINT `stan_magazynu_ibfk_2` FOREIGN KEY (`Id_produktu`) REFERENCES `produkt` (`Id_produktu`);
 
 --
--- Constraints for table `zamowienie`
+-- Ograniczenia dla tabeli `zamowienie`
 --
 ALTER TABLE `zamowienie`
   ADD CONSTRAINT `zamowienie_ibfk_1` FOREIGN KEY (`Id_klienta`) REFERENCES `klient` (`Id_klienta`),
