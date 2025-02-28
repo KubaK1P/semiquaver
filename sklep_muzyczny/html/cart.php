@@ -70,7 +70,7 @@ mysqli_close($conn);
         ?>
         <main class="bg-gradient-to-b from-sky-200 from-0% to-white pt-[120px] flex justify-center">
             <div class="w-1/2 pt-[40px]">
-                <h1 class="text-5xl font-bold mb-6">Your cart</h1>
+                <h1 class="text-5xl font-bold mb-6">Your cart (<?php echo $cartProductsCount ?>)</h1>
                 <?php echo ($status)? "<p class='text-red-600 text-2xl mb-4'>" . $status . "</p>" : ""; ?>
                 <div class="w-full grid grid-cols-[1fr_1fr_1fr] gap-6">
                 <?php
