@@ -1,4 +1,5 @@
 <?php 
+include "../components/product_comp.php";
 
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
@@ -30,8 +31,17 @@ $userName = $_SESSION["user_name"] ?? "Guest";
         <?php
         include "../components/header.php";
         ?>
-        <main class="bg-gradient-to-b from-sky-200 from-0% to-white pt-[120px]">
-            <h1 class="text-4xl">Hello, <?php echo $userName; ?></h1>
+        <main class="bg-gradient-to-b from-sky-200 from-0% to-white pt-[120px] flex justify-center">
+            <div class="w-1/2 pt-[40px]">
+                <h1 class="text-5xl font-bold">Hello, <?php echo $userName; ?></h1>
+                <h2 class="text-lg font-semibold mb-4"><?php echo $userEmail; ?></h2>
+                <hr class="w-full mb-6">
+                <h3 class="text-4xl font-semibold">Your cart</h3>
+                <div class="w-full">
+                    //cart products
+
+                </div>
+            </div>
         </main>
         <?php
         include "../components/footer.shtml";
