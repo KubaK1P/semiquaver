@@ -151,7 +151,7 @@ mysqli_close($conn);
                         echo "<h3 class=\"mb-4 text-lg text-bold text-gray-700\">Nothing found, perhaps you are searching for a medieval lute?</h3> <a href=\"https://en.wikipedia.org/wiki/Lute\" class=\"text-lg text-semibold text-sky-300\">Lute info</a>";
                     } else {
                         foreach ($products as $product) {
-                            echo product($product["Id_produktu"], $product["Nazwa_produktu"], $product["Cena_jednostkowa"], $product["Zdjecie_produktu"], $product["Id_kategorii_produktu"], $product["Nazwa_kategorii_produktu"], 25);
+                            echo product($product["Id_produktu"], $product["Nazwa_produktu"], $product["Cena_jednostkowa"], $product["Zdjecie_produktu"], $product["Id_kategorii_produktu"], $product["Nazwa_kategorii_produktu"], 25, null);
                         }
                     }
                     ?>

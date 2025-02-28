@@ -1,6 +1,7 @@
 <?php
-function product($productId, $productName, $productPrice, $productImage, $categoryId, $productCategory, $productWidth)
+function product($productId, $productName, $productPrice, $productImage, $categoryId, $productCategory, $productWidth, $productCount)
 {
+    $mult = ($productCount)? $productCount . " x" : "" ;
     echo <<<EOF
 <div class="basis-[$productWidth%] bg-white border border-gray-200 rounded-lg shadow flex flex-col justify-between">
     <a href="./product.php?id=$productId" class="h-[60%] flex justify-center">
@@ -19,7 +20,7 @@ function product($productId, $productName, $productPrice, $productImage, $catego
                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
             </svg>
         </a>
-        <p class="text-xl text-gray-700 p-2 font-semibold">$productPrice zł</p> 
+        <p class="text-xl text-gray-700 p-2 font-semibold">$mult $productPrice zł</p> 
         </div>
     </div>
 </div>
