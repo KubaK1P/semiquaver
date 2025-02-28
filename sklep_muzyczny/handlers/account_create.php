@@ -70,6 +70,22 @@ if (mysqli_stmt_execute($stmt)) {
     $_SESSION["user_name"] = $userName;
     
     mysqli_stmt_close($stmt);
+    
+    
+    $query = "INSERT INTO koszyk (Id_koszyka, Id_klienta) VALUES (null, ? )";
+    $stmt = mysqli_prepare($conn, $query);
+    
+    if (!$stmt) {
+        die("Database error: " . mysqli_error($conn));
+    }
+
+    mysqli_stmt_bind_param($stmt, "i", $_SESSION["user_id"]);
+    
+    if (!mysqli_stmt_execute($stmt)) {
+        die("Statement execution failed: " . mysqli_stmt_error($stmt));
+    }
+
+    mysqli_stmt_close($stmt);
     mysqli_close($conn);
     
     header("Location: ../html/account.php?mess=registration_success");
