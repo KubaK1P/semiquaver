@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 26 Lut 2025, 10:37
+-- Czas generowania: 28 Lut 2025, 19:41
 -- Wersja serwera: 10.4.24-MariaDB
 -- Wersja PHP: 8.1.6
 
@@ -99,7 +99,9 @@ CREATE TABLE `klient` (
 INSERT INTO `klient` (`Id_klienta`, `Nazwisko`, `Imie`, `Nr_telefonu`, `Email`, `Miasto`, `Ulica`, `Wiek`, `Plec`, `haslo`) VALUES
 (1, 'test', 'test', '000000000', 'test@test.com', 'Test', 'Test', 99, 'M', '123'),
 (2, 'Kuś', 'Jakub', '516483644', 'kubakus2604@gmail.com', 'Gliwice', 'Tylna', 18, 'M', '$2y$10$Y5sfri6D1j24YLQaZPA7QuHe2COz7FWxQcsNvOQVPCwmAzdiZPAMS'),
-(3, 'Geodecki', 'Bartosz', '500500500', '1p22geo@gmail.com', 'Zabrze', 'Sobieskiego', 13, 'M', '$2y$10$OyNPuDkSzKLqLjR1sYIVTe5QDRfMqXab4LF5AUHDiJIZesP9rc.sG');
+(3, 'Geodecki', 'Bartosz', '500500500', '1p22geo@gmail.com', 'Zabrze', 'Sobieskiego', 13, 'M', '$2y$10$OyNPuDkSzKLqLjR1sYIVTe5QDRfMqXab4LF5AUHDiJIZesP9rc.sG'),
+(4, 'Zambrzycka', 'Magdalena', '789432874', '1p22zambrzycka@gmail.com', 'BRAK_INFORMACJI', 'BRAK_INFORMACJI', 16, 'K', '$2y$10$SNbHX6cGkIY5dfhMLnZcielcPLixzA2S5ILtRuBnUupv96GP2sjyW'),
+(5, 'koszyk', 'koszyk', '213769420', 'koszyk@gmail.com', 'koszyk', 'koszyk', 44, 'M', '$2y$10$mYm47fVQfAgCMMgI8Dnfv./10IU6khjCKzANa3.qX5az.nlurdkZ6');
 
 -- --------------------------------------------------------
 
@@ -108,8 +110,20 @@ INSERT INTO `klient` (`Id_klienta`, `Nazwisko`, `Imie`, `Nr_telefonu`, `Email`, 
 --
 
 CREATE TABLE `koszyk` (
-  `Id_koszyka` bigint(20) NOT NULL
+  `Id_koszyka` bigint(20) NOT NULL,
+  `Id_klienta` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Zrzut danych tabeli `koszyk`
+--
+
+INSERT INTO `koszyk` (`Id_koszyka`, `Id_klienta`) VALUES
+(2, 1),
+(3, 2),
+(4, 3),
+(5, 4),
+(1, 5);
 
 -- --------------------------------------------------------
 
@@ -128,39 +142,26 @@ CREATE TABLE `magazyn` (
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `oferta`
---
-
-CREATE TABLE `oferta` (
-  `Id_oferty` bigint(20) NOT NULL,
-  `Id_produktu` bigint(20) NOT NULL,
-  `Opis_oferty` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Struktura tabeli dla tabeli `oferta_koszyk`
---
-
-CREATE TABLE `oferta_koszyk` (
-  `Id_oferty` bigint(20) NOT NULL,
-  `Id_koszyka` bigint(20) NOT NULL,
-  `ilosc` mediumint(8) UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
 -- Struktura tabeli dla tabeli `opinia`
 --
 
 CREATE TABLE `opinia` (
   `Id_opinii` bigint(20) NOT NULL,
   `Tresc_opinii` text NOT NULL,
-  `Id_oferty` bigint(20) NOT NULL,
+  `Id_produktu` bigint(20) NOT NULL,
   `Id_klienta` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Zrzut danych tabeli `opinia`
+--
+
+INSERT INTO `opinia` (`Id_opinii`, `Tresc_opinii`, `Id_produktu`, `Id_klienta`) VALUES
+(1, 'Jakubs review for pianino yamaha', 1, 2),
+(2, 'Polecam gorąco fajny fortepian, kupiłem dla dziecka na urodziny\r\nFajna cena polecam', 1, 3),
+(3, 'Super pianino', 1, 4),
+(4, 'Fajny flet', 7, 4),
+(5, 'Niezbyt fajny flet poprzeczny widziałem lepsze', 7, 3);
 
 -- --------------------------------------------------------
 
@@ -213,6 +214,18 @@ CREATE TABLE `produkt_koszyk` (
   `Id_koszyka` bigint(20) NOT NULL,
   `ilosc` mediumint(8) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Zrzut danych tabeli `produkt_koszyk`
+--
+
+INSERT INTO `produkt_koszyk` (`Id_produktu`, `Id_koszyka`, `ilosc`) VALUES
+(6, 4, 1),
+(7, 3, 2),
+(1, 3, 1),
+(2, 4, 2),
+(6, 3, 1),
+(3, 3, 4);
 
 -- --------------------------------------------------------
 
@@ -280,7 +293,8 @@ ALTER TABLE `klient`
 -- Indeksy dla tabeli `koszyk`
 --
 ALTER TABLE `koszyk`
-  ADD PRIMARY KEY (`Id_koszyka`);
+  ADD PRIMARY KEY (`Id_koszyka`),
+  ADD KEY `Id_klienta` (`Id_klienta`);
 
 --
 -- Indeksy dla tabeli `magazyn`
@@ -289,26 +303,12 @@ ALTER TABLE `magazyn`
   ADD PRIMARY KEY (`Id_magazynu`);
 
 --
--- Indeksy dla tabeli `oferta`
---
-ALTER TABLE `oferta`
-  ADD PRIMARY KEY (`Id_oferty`),
-  ADD KEY `Id_produktu` (`Id_produktu`);
-
---
--- Indeksy dla tabeli `oferta_koszyk`
---
-ALTER TABLE `oferta_koszyk`
-  ADD KEY `Id_oferty` (`Id_oferty`),
-  ADD KEY `Id_koszyka` (`Id_koszyka`);
-
---
 -- Indeksy dla tabeli `opinia`
 --
 ALTER TABLE `opinia`
   ADD PRIMARY KEY (`Id_opinii`),
-  ADD KEY `Id_oferty` (`Id_oferty`),
-  ADD KEY `Id_klienta` (`Id_klienta`);
+  ADD KEY `Id_klienta` (`Id_klienta`),
+  ADD KEY `Id_produktu` (`Id_produktu`);
 
 --
 -- Indeksy dla tabeli `produkt`
@@ -366,13 +366,13 @@ ALTER TABLE `kategoria_produktu`
 -- AUTO_INCREMENT dla tabeli `klient`
 --
 ALTER TABLE `klient`
-  MODIFY `Id_klienta` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `Id_klienta` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT dla tabeli `koszyk`
 --
 ALTER TABLE `koszyk`
-  MODIFY `Id_koszyka` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id_koszyka` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT dla tabeli `magazyn`
@@ -381,16 +381,10 @@ ALTER TABLE `magazyn`
   MODIFY `Id_magazynu` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT dla tabeli `oferta`
---
-ALTER TABLE `oferta`
-  MODIFY `Id_oferty` bigint(20) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT dla tabeli `opinia`
 --
 ALTER TABLE `opinia`
-  MODIFY `Id_opinii` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id_opinii` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT dla tabeli `produkt`
@@ -429,27 +423,14 @@ ALTER TABLE `gitara_koszyk`
 -- Ograniczenia dla tabeli `koszyk`
 --
 ALTER TABLE `koszyk`
-  ADD CONSTRAINT `koszyk_ibfk_1` FOREIGN KEY (`Id_koszyka`) REFERENCES `klient` (`Id_klienta`);
-
---
--- Ograniczenia dla tabeli `oferta`
---
-ALTER TABLE `oferta`
-  ADD CONSTRAINT `oferta_ibfk_1` FOREIGN KEY (`Id_produktu`) REFERENCES `produkt` (`Id_produktu`);
-
---
--- Ograniczenia dla tabeli `oferta_koszyk`
---
-ALTER TABLE `oferta_koszyk`
-  ADD CONSTRAINT `oferta_koszyk_ibfk_1` FOREIGN KEY (`Id_oferty`) REFERENCES `oferta` (`Id_oferty`),
-  ADD CONSTRAINT `oferta_koszyk_ibfk_2` FOREIGN KEY (`Id_koszyka`) REFERENCES `koszyk` (`Id_koszyka`);
+  ADD CONSTRAINT `koszyk_ibfk_1` FOREIGN KEY (`Id_klienta`) REFERENCES `klient` (`Id_klienta`);
 
 --
 -- Ograniczenia dla tabeli `opinia`
 --
 ALTER TABLE `opinia`
-  ADD CONSTRAINT `opinia_ibfk_1` FOREIGN KEY (`Id_oferty`) REFERENCES `oferta` (`Id_oferty`),
-  ADD CONSTRAINT `opinia_ibfk_2` FOREIGN KEY (`Id_klienta`) REFERENCES `klient` (`Id_klienta`);
+  ADD CONSTRAINT `opinia_ibfk_2` FOREIGN KEY (`Id_klienta`) REFERENCES `klient` (`Id_klienta`),
+  ADD CONSTRAINT `opinia_ibfk_3` FOREIGN KEY (`Id_produktu`) REFERENCES `produkt` (`Id_produktu`);
 
 --
 -- Ograniczenia dla tabeli `produkt`
