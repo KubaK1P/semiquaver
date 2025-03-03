@@ -74,7 +74,7 @@ mysqli_close($conn);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Semiquaver - store</title>
+    <title>Semiquaver - Guitar Creator</title>
     <!-- <link rel="stylesheet" href="../css/main.css"> -->
     <link rel="stylesheet" href="../css/background_image.css">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -87,7 +87,7 @@ mysqli_close($conn);
         ?>
         <header class="relative h-[100vh] text-[600%] text-white font-semibold p-6" id="store">
             <div class="flex flex-col items-center absolute top-[77%] left-[50%] translate-x-[-50%] translate-y-[-70%]">
-                <h1 class="" id="searchResult">Store</h1>
+                <h1 class="" id="searchResult">Guitar creator</h1>
                 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
                     <path fill="none" stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.35" d="m6 6l6 6l6-6M6 12l6 6l6-6" />
                 </svg>
