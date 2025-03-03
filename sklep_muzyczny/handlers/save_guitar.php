@@ -26,6 +26,11 @@ $bridge = $_SESSION["guitar_components"][13] ?? null;
 $wood = $_SESSION["guitar_components"][14] ?? null;
 $tuners = $_SESSION["guitar_components"][15] ?? null;
 
+if (!$pickup || !$strings || !$bridge || !$wood || !$tuners) {
+    header("Location: ../html/guitar.php?mess=missing_components");
+    exit();
+}
+
 // Calculate total price
 $totalPrice = 1000; // Base guitar price
 

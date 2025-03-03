@@ -2,7 +2,7 @@
 function product($productId, $productName, $productPrice, $productImage, $categoryId, $productCategory, $productWidth, $productCount)
 {
     $guitarCreatorAddButton = '';
-    if (str_contains($_SERVER["REQUEST_URI"], "guitar")) {
+    if (str_contains($_SERVER["REQUEST_URI"], "guitar.php")) {
         $guitarCreatorAddButton = "<a href='../handlers/add_to_guitar.php?id=$productId&category=$categoryId' class='inline-flex items-center px-3 py-2 text-sm font-medium text-center border-2 border-sky-300 text-gray-800 bg-sky-100 hover:bg-sky-200 rounded-lg shadow'>
             Add to your guitar
         </a>";

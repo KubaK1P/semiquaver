@@ -77,6 +77,11 @@ mysqli_close($conn);
         </header>
         <div class="flex justify-between p-6">
             <main class="basis-[65%] p-2" id="creator">
+            <?php
+if (isset($_GET["mess"]) && $_GET["mess"] === "missing_components") {
+    echo "<div class='bg-red-500 text-white p-4 text-center font-bold'> Please select all required components before proceeding!</div>";
+}
+?>
                 <?php foreach ($componentArrays as $categoryArray) { ?>
                 <header class="flex text-4xl text-bold mb-6">
                     <h2 class="text-5xl basis-1/2 p-2 pl-4"><?php echo $categoryArray[0]["Nazwa_kategorii_produktu"]; ?></h2>
