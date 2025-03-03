@@ -13,7 +13,7 @@ if (!isset($_SESSION["guitar_components"])) {
 
 $conn = connect();
 
-$componentCategoryIds = [1, 8, 9];
+$componentCategoryIds = [16, 11, 13, 14, 15];
 $componentArrays = array(); 
 
 

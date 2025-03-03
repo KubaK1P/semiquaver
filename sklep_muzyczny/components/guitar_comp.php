@@ -43,7 +43,8 @@ EOF;
             </ul>
             <div class="flex justify-between items-center mt-4">
                 <p class="text-xl text-gray-700 font-semibold">Total: $totalPrice zł</p>
-                <a href="checkout.php" class="px-4 py-2 bg-sky-500 text-white rounded-lg shadow">Buy Now</a>
+                <a href="../handlers/save_guitar.php" class="px-4 py-2 bg-green-500 text-white rounded-lg shadow">Save Guitar & Add to Cart</a>
+
             </div>
         </div>
     </div>

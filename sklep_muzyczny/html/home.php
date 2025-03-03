@@ -1,3 +1,6 @@
+<?php
+require("../scripts/mysql_connect.php");
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
