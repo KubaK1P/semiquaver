@@ -100,7 +100,7 @@ mysqli_close($conn);
                     <h2 class="text-5xl basis-1/2 p-2 pl-4">Your guitar</h2>
                 </header>
                 <div class="grid grid-cols-[1fr] mb-6" id="products">
-                    <?php echo guitar(69, "Your Guitar", 900, "../img/guitar_blank.png")?>
+                    <?php echo guitar(69, "Your Guitar", 1000, "../img/guitar_blank.png")?>
                 </div>
             </aside>
         </div>

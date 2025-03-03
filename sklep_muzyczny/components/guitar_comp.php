@@ -4,12 +4,9 @@ function guitar($defaultId, $defaultName, $defaultPrice, $defaultImage)
     if (session_status() === PHP_SESSION_NONE) {
         session_start();
     }
-
     // require("../scripts/mysql_connect.php");
 
     $conn = connect();
-
-    // Get the selected components
     $selectedComponents = isset($_SESSION["guitar_components"]) ? $_SESSION["guitar_components"] : [];
 
     echo <<<EOF
@@ -22,7 +19,6 @@ function guitar($defaultId, $defaultName, $defaultPrice, $defaultImage)
             <ul>
 EOF;
 
-    // Fetch details of selected components
     $totalPrice = $defaultPrice;
     foreach ($selectedComponents as $categoryId => $productId) {
         $query = "SELECT Nazwa_produktu, Cena_jednostkowa FROM produkt WHERE Id_produktu = ?";
@@ -33,7 +29,10 @@ EOF;
         $product = mysqli_fetch_assoc($result);
 
         if ($product) {
-            echo "<li class='text-lg text-gray-700'>{$product['Nazwa_produktu']} - {$product['Cena_jednostkowa']} zł</li>";
+            echo "<li class='text-lg text-gray-700 flex justify-between'>
+                    <span>{$product['Nazwa_produktu']} - {$product['Cena_jednostkowa']} zł</span>
+                    <a href='../handlers/remove_from_guitar.php?category=$categoryId' class='text-red-500 hover:text-red-700'>Remove</a>
+                  </li>";
             $totalPrice += $product['Cena_jednostkowa'];
         }
 
